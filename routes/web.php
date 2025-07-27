@@ -78,3 +78,4 @@ Route::post('/umrah', [UmrahController::class, 'store'])->middleware('auth', 've
 Route::get('/umrah/{id}/edit', [UmrahController::class, 'edit'])->middleware('auth', 'verified', 'is_admin')->name('edit-umrah');
 Route::get('/umrah/{id}', [UmrahController::class, 'show'])->middleware('auth', 'verified', 'is_admin')->name('show-umrah');
 Route::put('/umrah/{id}', [UmrahController::class, 'update'])->middleware('auth', 'verified', 'is_admin')->name('update-umrah');
+Route::delete('/umrah/{id}', [UmrahController::class, 'destroy'])->middleware('auth', 'verified', 'is_admin')->name('destroy-umrah');
