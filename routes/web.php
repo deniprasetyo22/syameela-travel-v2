@@ -53,7 +53,7 @@ Route::get('/testimonials', [TestimonialsController::class, 'index'])->name('tes
 Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery');
 
 
-Route::get('/admin-dashboard', [DashboardController::class, 'admin'])->middleware('auth', 'verified')->name('admin-dashboard');
+Route::get('/admin-dashboard', [DashboardController::class, 'admin'])->middleware('auth', 'verified', 'is_admin')->name('admin-dashboard');
 Route::get('/user-dashboard', [DashboardController::class, 'user'])->middleware('auth', 'verified')->name('user-dashboard');
 
 Route::get('/users', [UserController::class, 'index'])->middleware('auth', 'verified', 'is_admin')->name('users');
