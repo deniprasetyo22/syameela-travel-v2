@@ -25,11 +25,13 @@ class RoleSeeder extends Seeder
         Schema::enableForeignKeyConstraints();
 
         Role::create([
-            'name' => 'Admin'
+            'name' => 'Admin',
+            'description' => 'Admin can manage everything'
         ]);
 
         Role::create([
-            'name' => 'User'
+            'name' => 'User',
+            'description' => 'User can only manage their own data'
         ]);
     }
 }

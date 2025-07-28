@@ -13,7 +13,9 @@ return new class extends Migration
     {
         Schema::create('packages', function (Blueprint $table) {
             $table->id();
-            $table->string('package_name', 100);
+            $table->string('name');
+            $table->text('picture');
+            $table->text('description');
             $table->string('type', 50);
             $table->decimal('price', 15, 2);
             $table->integer('quota');

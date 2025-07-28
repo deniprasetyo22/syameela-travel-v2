@@ -28,7 +28,9 @@ class PackageSeeder extends Seeder
             $packageName = $type . ' ' . $category;
 
             DB::table('packages')->insert([
-                'package_name' => $packageName,
+                'name' => $packageName,
+                'description' => fake()->paragraph(4),
+                'picture' => 'images/packages/' . Str::random(10) . '.jpg',
                 'type' => $type,
                 'price' => fake()->numberBetween(25000000, 70000000),
                 'quota' => fake()->numberBetween(20, 100),

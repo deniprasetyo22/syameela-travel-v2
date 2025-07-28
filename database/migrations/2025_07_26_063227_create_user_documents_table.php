@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('user_documents', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->string('id_card')->nullable();
-            $table->string('family_card')->nullable();
-            $table->string('passport')->nullable();
-            $table->string('photo')->nullable();
-            $table->string('marriage_certificate')->nullable();
-            $table->string('vaccine')->nullable();
+            $table->text('id_card')->nullable();
+            $table->text('family_card')->nullable();
+            $table->text('passport')->nullable();
+            $table->text('photo')->nullable();
+            $table->text('marriage_certificate')->nullable();
+            $table->text('vaccine')->nullable();
             $table->dateTime('verified_at')->nullable();
             $table->timestamps();
         });
