@@ -33,6 +33,18 @@
         <x-footer />
 
         <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+
+        {{-- TinyMCE --}}
+        <script src="https://cdn.tiny.cloud/1/c1h7urknom6z3593gwvhghj48iwjyopu2h5bhtc6orsbde0v/tinymce/8/tinymce.min.js"
+            referrerpolicy="origin" crossorigin="anonymous"></script>
+        <script>
+            tinymce.init({
+                selector: 'textarea#formTextArea',
+                plugins: 'code table lists',
+                onboarding: false,
+                toolbar: 'undo redo | blocks | bold italic | alignleft aligncenter alignright | indent outdent | bullist numlist | code | table'
+            });
+        </script>
     </body>
 
 </html>

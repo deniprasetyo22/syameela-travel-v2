@@ -17,33 +17,20 @@
                     </div>
                 @endif
 
-                <form action="{{ route('store-hajj') }}" method="POST">
+                <form action="{{ route('store-hajj') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
-                        <div class="col-span-2">
-                            <label for="package_name"
-                                class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
+                        <div class="sm:col-span-2">
+                            <label for="name" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
                                 Nama Paket
                             </label>
-                            <input type="text" name="package_name" id="package_name"
-                                value="{{ old('package_name') }}"
-                                class="focus:ring-primary-600 focus:border-primary-600 dark:focus:ring-primary-500 dark:focus:border-primary-500 @error('package_name') border-red-500 @else border-gray-300 @enderror block w-full rounded-lg border bg-gray-50 p-2.5 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
+                            <input type="text" name="name" id="name" value="{{ old('name') }}"
+                                class="focus:ring-primary-600 focus:border-primary-600 dark:focus:ring-primary-500 dark:focus:border-primary-500 @error('name') border-red-500 @else border-gray-300 @enderror block w-full rounded-lg border bg-gray-50 p-2.5 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
                                 placeholder="Nama Paket" required="" autofocus>
-                            @error('package_name')
+                            @error('name')
                                 <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
                             @enderror
                         </div>
-                        {{-- <div class="hidden w-full">
-                            <label for="type" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
-                                Tipe Paket
-                            </label>
-                            <input type="hidden" name="type" id="type" value="Haji"
-                                class="@error('type') border-red-500 @else border-gray-300 @enderror block w-full rounded-lg border bg-gray-100 p-2.5 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
-                                readonly required>
-                            @error('type')
-                                <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
-                            @enderror
-                        </div> --}}
                         <div class="w-full">
                             <label for="price" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
                                 Harga
@@ -92,14 +79,37 @@
                                 <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
                             @enderror
                         </div>
-                        <div class="col-span-2">
+                        <div class="sm:col-span-2">
+                            <label for="image" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
+                                Foto <span class="text-xs text-gray-400">*JPG, PNG (Max. 2MB)</span>
+                            </label>
+                            <input type="file" name="image" id="image" value="{{ old('image') }}"
+                                class="focus:ring-primary-600 focus:border-primary-600 dark:focus:ring-primary-500 dark:focus:border-primary-500 @error('image') border-red-500 @else border-gray-300 @enderror block w-full cursor-pointer rounded-lg border bg-gray-50 text-sm text-gray-900 focus:outline-none dark:border-gray-600 dark:bg-gray-700 dark:text-gray-400 dark:placeholder-gray-400"
+                                required="" accept="image/*">
+                            @error('image')
+                                <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        <div class="sm:col-span-2">
+                            <label for="description"
+                                class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
+                                Deskripsi
+                            </label>
+                            <textarea rows="10" name="description" id="formTextArea"
+                                class="focus:ring-primary-600 focus:border-primary-600 dark:focus:ring-primary-500 dark:focus:border-primary-500 @error('description') border-red-500 @else border-gray-300 @enderror block w-full rounded-lg border bg-gray-50 p-2.5 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
+                                placeholder="Fasilitas">{{ old('description') }}</textarea>
+                            @error('description')
+                                <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        <div class="sm:col-span-2">
                             <label for="facilities"
                                 class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
                                 Fasilitas
                             </label>
-                            <textarea rows="10" name="facilities" id="facilities"
+                            <textarea rows="10" name="facilities" id="formTextArea"
                                 class="focus:ring-primary-600 focus:border-primary-600 dark:focus:ring-primary-500 dark:focus:border-primary-500 @error('facilities') border-red-500 @else border-gray-300 @enderror block w-full rounded-lg border bg-gray-50 p-2.5 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
-                                placeholder="Fasilitas" required>{{ old('facilities') }}</textarea>
+                                placeholder="Fasilitas">{{ old('facilities') }}</textarea>
                             @error('facilities')
                                 <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
                             @enderror
@@ -119,19 +129,4 @@
             </div>
         </div>
     </div>
-
-    {{-- <script>
-        const priceInput = document.getElementById('price');
-
-        priceInput.addEventListener('input', function(e) {
-            let value = e.target.value.replace(/[^\d]/g, '');
-            let formatted = new Intl.NumberFormat('id-ID', {
-                style: 'currency',
-                currency: 'IDR',
-                minimumFractionDigits: 0
-            }).format(value);
-
-            e.target.value = formatted;
-        });
-    </script> --}}
 </x-layout>

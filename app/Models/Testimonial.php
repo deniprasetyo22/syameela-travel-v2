@@ -2,17 +2,19 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class ActivityLog extends Model
+class Testimonial extends Model
 {
-    protected $table = 'activity_logs';
+    use HasFactory;
+
+    protected $table = 'testimonials';
 
     protected $fillable = [
         'user_id',
-        'action',
-        'occurred_at',
+        'content',
     ];
 
     public function user(): BelongsTo

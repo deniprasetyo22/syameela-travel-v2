@@ -13,8 +13,10 @@ class Package extends Model
     protected $table = 'packages';
 
     protected $fillable = [
-        'package_name',
+        'name',
         'type',
+        'image',
+        'description',
         'price',
         'quota',
         'facilities',
@@ -39,7 +41,7 @@ class Package extends Model
     public static function search($keyword)
     {
         return static::where(function ($query) use ($keyword) {
-            $query->where('package_name', 'like', "%{$keyword}%");
+            $query->where('name', 'like', "%{$keyword}%");
         });
     }
 

@@ -48,7 +48,6 @@
                                 <th scope="col" class="px-4 py-3">Nama Paket</th>
                                 <th scope="col" class="px-4 py-3">Harga</th>
                                 <th scope="col" class="px-4 py-3">Kuota</th>
-                                <th scope="col" class="px-4 py-3">Fasilitas</th>
                                 <th scope="col" class="px-4 py-3">Tanggal Berangkat</th>
                                 <th scope="col" class="px-4 py-3">Tanggal Kembali</th>
                                 <th scope="col" class="px-4 py-3">
@@ -70,15 +69,16 @@
                                     @endphp
                                     <tr class="odd:bg-white even:bg-gray-50 dark:border-gray-700">
                                         <td class="px-4 py-3">{{ $loop->iteration }}</td>
-                                        <td class="px-4 py-3">{{ $package->package_name }}</td>
+                                        <td class="px-4 py-3">{{ $package->name }}</td>
                                         <td class="px-4 py-3">Rp {{ number_format($package->price, 0, ',', '.') }}</td>
                                         <td class="px-4 py-3">{{ $package->quota }}</td>
-                                        <td class="px-4 py-3">{{ $package->facilities }}</td>
                                         <td class="px-4 py-3">
-                                            {{ \Carbon\Carbon::parse($package->departure_date)->translatedFormat('j F Y, H:i:s') }}
+                                            {{ \Carbon\Carbon::parse($package->departure_date)->translatedFormat('j F Y, H:i') }}
+                                            WIB
                                         </td>
                                         <td class="px-4 py-3">
-                                            {{ \Carbon\Carbon::parse($package->return_date)->translatedFormat('j F Y, H:i:s') }}
+                                            {{ \Carbon\Carbon::parse($package->return_date)->translatedFormat('j F Y, H:i') }}
+                                            WIB
                                         </td>
                                         <td class="flex items-center justify-end px-4 py-3">
                                             <div class="relative inline-block text-left">

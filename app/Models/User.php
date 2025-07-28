@@ -96,6 +96,14 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(ActivityLog::class);
     }
 
+    /**
+     * Get the testimonials for the user.
+     */
+    public function testimonials(): HasMany
+    {
+        return $this->hasMany(Testimonial::class);
+    }
+
     public static function search($keyword)
     {
         return static::where(function ($query) use ($keyword) {
