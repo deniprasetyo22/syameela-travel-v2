@@ -52,8 +52,9 @@
                     </div>
                 </div>
             @empty
-                <p class="text-center text-gray-500 lg:col-span-3">Tidak ada data
-                </p>
+                <div class="col-span-full flex items-center justify-center py-20">
+                    <p class="text-center text-lg text-gray-500">Tidak ada data</p>
+                </div>
             @endforelse
         </div>
         <div class="mt-10">
