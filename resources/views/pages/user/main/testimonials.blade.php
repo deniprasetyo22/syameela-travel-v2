@@ -52,7 +52,7 @@
                     </div>
                 </div>
             @empty
-                <p class="text-center text-gray-500 md:col-span-2 lg:col-span-3">Belum ada galeri untuk kategori ini.
+                <p class="text-center text-gray-500 lg:col-span-3">Tidak ada data
                 </p>
             @endforelse
         </div>
