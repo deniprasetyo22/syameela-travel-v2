@@ -17,7 +17,7 @@
     {{-- Testimonials --}}
     <div class="mx-auto mb-20 max-w-screen-xl px-4 pt-10">
         <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-            @foreach ($data['testimonials'] as $testimonial)
+            @forelse ($data['testimonials'] as $testimonial)
                 @php
                     $id = $testimonial->id;
                 @endphp
@@ -51,7 +51,10 @@
                         </div>
                     </div>
                 </div>
-            @endforeach
+            @empty
+                <p class="text-center text-gray-500 md:col-span-2 lg:col-span-3">Belum ada galeri untuk kategori ini.
+                </p>
+            @endforelse
         </div>
         <div class="mt-10">
             {{ $data['testimonials']->links() }}
