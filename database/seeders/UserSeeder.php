@@ -33,7 +33,12 @@ class UserSeeder extends Seeder
             ]);
 
             // 3. Buat UserProfile yang terhubung dengan user admin
-            UserProfile::create(['user_id' => $adminUser->id]);
+            UserProfile::create([
+                'user_id' => $adminUser->id,
+                'gender' => 'Laki-laki',
+                'phone' => '081' . rand(1000000000, 9999999999),
+                'address' => 'Jl. ' . fake()->streetName() . ' No. ' . rand(1, 100),
+            ]);
 
         } else {
             $this->command->info('Role "Admin" not found. Skipping AdminUserSeeder.');
@@ -52,7 +57,12 @@ class UserSeeder extends Seeder
             ]);
 
             // 3. Buat UserProfile yang terhubung dengan user biasa
-            UserProfile::create(['user_id' => $user->id]);
+            UserProfile::create([
+                'user_id' => $user->id,
+                'gender' => 'Laki-laki',
+                'phone' => '081' . rand(1000000000, 9999999999),
+                'address' => 'Jl. ' . fake()->streetName() . ' No. ' . rand(1, 100),
+            ]);
 
             // 4. Buat 50 User dengan faker
             User::factory(50)
