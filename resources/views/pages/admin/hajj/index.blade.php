@@ -143,7 +143,7 @@
                                                         class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
                                                         Yakin ingin menghapus <b>{{ $package->package_name }}</b>?
                                                     </h3>
-                                                    <form action="{{ route('destroy-hajj', $package->id) }}"
+                                                    <form action="{{ route('delete-hajj', $package->id) }}"
                                                         method="POST">
                                                         @csrf
                                                         @method('DELETE')

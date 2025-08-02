@@ -19,7 +19,7 @@
 
         <!-- Sidebar -->
         @auth
-            @if (Auth::check())
+            @if (Auth::check() && Auth::user()->hasVerifiedEmail() && Auth::user()->role_id == 1)
                 <x-sidebar />
             @endif
         @endauth
@@ -44,6 +44,23 @@
                 onboarding: false,
                 toolbar: 'undo redo | blocks | bold italic | alignleft aligncenter alignright | indent outdent | bullist numlist | code | table'
             });
+        </script>
+
+        {{-- Script Toggle Testimonials --}}
+        <script>
+            function toggleMore(id) {
+                document.getElementById(`content-${id}`).classList.remove('max-h-30');
+                document.getElementById(`content-${id}`).classList.add('max-h-full');
+                document.getElementById(`more-${id}`).classList.add('hidden');
+                document.getElementById(`close-${id}`).classList.remove('hidden');
+            }
+
+            function toggleClose(id) {
+                document.getElementById(`content-${id}`).classList.remove('max-h-full');
+                document.getElementById(`content-${id}`).classList.add('max-h-30');
+                document.getElementById(`more-${id}`).classList.remove('hidden');
+                document.getElementById(`close-${id}`).classList.add('hidden');
+            }
         </script>
     </body>
 

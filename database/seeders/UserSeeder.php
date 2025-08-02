@@ -28,7 +28,7 @@ class UserSeeder extends Seeder
                 'username' => 'admin',
                 'email' => 'admin@yopmail.com',
                 'email_verified_at' => now(),
-                'password' => Hash::make('admin123'),
+                'password' => Hash::make('admin12345'),
                 'role_id' => $adminRole->id,
             ]);
 
@@ -47,7 +47,7 @@ class UserSeeder extends Seeder
                 'username' => 'user',
                 'email' => 'user@yopmail.com',
                 'email_verified_at' => now(),
-                'password' => Hash::make('user123'),
+                'password' => Hash::make('user12345'),
                 'role_id' => $userRole->id,
             ]);
 
@@ -58,7 +58,12 @@ class UserSeeder extends Seeder
             User::factory(50)
                 ->create(['role_id' => $userRole->id,])
                 ->each(function ($user) {
-                    UserProfile::create(['user_id' => $user->id]);
+                    UserProfile::create([
+                        'user_id' => $user->id,
+                        'gender' => rand(0, 1) ? 'Laki-laki' : 'Perempuan',
+                        'phone' => '081' . rand(1000000000, 9999999999),
+                        'address' => 'Jl. ' . fake()->streetName() . ' No. ' . rand(1, 100),
+                    ]);
                 });
 
         } else {

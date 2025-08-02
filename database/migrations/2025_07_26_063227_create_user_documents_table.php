@@ -18,8 +18,8 @@ return new class extends Migration
             $table->text('family_card')->nullable();
             $table->text('passport')->nullable();
             $table->text('photo')->nullable();
-            $table->text('marriage_certificate')->nullable();
-            $table->text('vaccine')->nullable();
+            $table->text('marriage_book')->nullable();
+            $table->text('vaccine_certificate')->nullable();
             $table->dateTime('verified_at')->nullable();
             $table->timestamps();
         });

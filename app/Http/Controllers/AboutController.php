@@ -8,7 +8,7 @@ class AboutController extends Controller
 {
     public function index()
     {
-        $title = 'Tentang Kami';
-        return view('pages.guest.about', ['title' => $title]);
+        $title = 'About';
+        return view('pages.user.main.about', ['title' => $title]);
     }
 }

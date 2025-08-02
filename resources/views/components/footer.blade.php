@@ -1,5 +1,5 @@
 <div>
-    @if (Auth::check())
+    @if (Auth::check() && Auth::user()->hasVerifiedEmail() && Auth::user()->role_id == 1)
         <footer class="bg-gray-100 p-4 md:ml-64 md:px-6 md:py-4 dark:bg-gray-800">
             <span class="flex justify-center text-sm text-gray-500 sm:text-center dark:text-gray-400">
                 ©{{ date('Y') }} Travel Syamilah. All Rights Reserved.
@@ -30,7 +30,7 @@
                                 class="bg-primary-600 hover:bg-primary-700 focus:ring-primary-400 inline-flex items-center justify-center rounded-full p-2 text-white focus:outline-none focus:ring-2">
                                 <i class="fa-brands fa-instagram text-lg"></i>
                             </a>
-                            <a href="" target="_blank" rel="noopener noreferrer"
+                            <a href="https://www.tiktok.com/@syameelatravel" target="_blank" rel="noopener noreferrer"
                                 class="bg-primary-600 hover:bg-primary-700 focus:ring-primary-400 inline-flex items-center justify-center rounded-full p-2 text-white focus:outline-none focus:ring-2">
                                 <i class="fa-brands fa-tiktok text-lg"></i>
                             </a>
@@ -54,8 +54,8 @@
                                 Paket Perjalanan
                             </h2>
                             <ul class="space-y-2 text-gray-600 dark:text-gray-400">
-                                <li><a href="#" class="hover:underline">Paket Haji</a></li>
-                                <li><a href="#" class="hover:underline">Paket Umrah</a></li>
+                                <li><a href="{{ route('hajj') }}" class="hover:underline">Paket Haji</a></li>
+                                <li><a href="{{ route('umrah') }}" class="hover:underline">Paket Umrah</a></li>
                             </ul>
                         </div>
 
@@ -64,10 +64,12 @@
                                 Media Sosial
                             </h2>
                             <ul class="space-y-2 text-gray-600 dark:text-gray-400">
-                                <li><a href="#" class="hover:underline">Facebook</a></li>
-                                <li><a href="#" class="hover:underline">YouTube</a></li>
-                                <li><a href="#" class="hover:underline">Instagram</a></li>
-                                <li><a href="#" class="hover:underline">Tiktok</a></li>
+                                <li><a href="https://web.facebook.com/people/Syameela-Id/pfbid04TEnpstXsBUVUzHo1G7ipR9k58tXamQB6joEpQd2vns28wYdjT33tUVwGY6CHtZVl"
+                                        class="hover:underline">Facebook</a></li>
+                                <li><a href="https://instagram.com/syameela.travel"
+                                        class="hover:underline">Instagram</a></li>
+                                <li><a href="https://www.tiktok.com/@syameelatravel" class="hover:underline">Tiktok</a>
+                                </li>
                             </ul>
                         </div>
 
@@ -77,21 +79,15 @@
                             </h2>
                             <ul class="space-y-2 text-gray-600 dark:text-gray-400">
                                 <li>
-                                    <a href="#" class="hover:underline">
+                                    <a href="https://wa.me/6283844682472" class="hover:underline">
                                         <i class="fa-brands fa-whatsapp"></i>
-                                        <span>08123456789</span>
+                                        <span>+6283844682472</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#" class="hover:underline">
-                                        <i class="fa-solid fa-phone"></i>
-                                        <span>(021) 555 8888</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="hover:underline">
+                                    <a href="mailto:travelsyameela@gmail.com" class="hover:underline">
                                         <i class="fa-solid fa-envelope"></i>
-                                        <span>info@example.com</span>
+                                        <span>travelsyameela@gmail.com</span>
                                     </a>
                                 </li>
                             </ul>

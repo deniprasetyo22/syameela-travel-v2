@@ -6,6 +6,7 @@ use App\Models\Role;
 use App\Models\User;
 use App\Models\UserProfile;
 use Illuminate\Support\Str;
+use App\Models\UserDocument;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -49,7 +50,7 @@ class AuthController extends Controller
             if ($roles === 'Admin') {
                 return redirect()->route('admin-dashboard');
             } elseif ($roles === 'User') {
-                return redirect()->route('user-dashboard');
+                return redirect()->route('profile');
             } else {
                 Auth::logout();
                 return redirect()->route('login')->withErrors([
@@ -76,7 +77,19 @@ class AuthController extends Controller
             'full_name'=> 'required|string|max:255',
             'username' => 'required|string|max:255|unique:users',
             'email'    => 'required|email|max:255|unique:users',
-            'password' => 'required|string|min:8',
+            'gender'   => 'required',
+            'phone'    => 'required',
+            'address'  => 'required',
+            'password' => 'required|string|min:8|confirmed',
+        ], [
+            'full_name.required' => 'Nama lengkap wajib diisi.',
+            'username.required' => 'Username wajib diisi.',
+            'username.unique' => 'Username sudah digunakan.',
+            'email.required' => 'Email wajib diisi.',
+            'email.unique' => 'Email sudah digunakan.',
+            'password.required' => 'Password wajib diisi.',
+            'password.min' => 'Password minimal 8 karakter.',
+            'password.confirmed' => 'Konfirmasi password tidak cocok.',
         ]);
 
         // Gunakan transaction untuk memastikan integritas data
@@ -95,6 +108,14 @@ class AuthController extends Controller
 
             // 2. Buat UserProfile yang terhubung
             UserProfile::create([
+                'user_id' => $user->id,
+                'gender'  => $request->gender,
+                'phone'   => $request->phone,
+                'address' => $request->address,
+            ]);
+
+            // 3. Buat UserDocument yang terhubung
+            UserDocument::create([
                 'user_id' => $user->id,
             ]);
 
@@ -127,7 +148,7 @@ class AuthController extends Controller
     public function verifyEmail(EmailVerificationRequest $request)
     {
         $request->fulfill();
-        return redirect('/login')->with('status', 'Email berhasil diverifikasi.');
+        return redirect('profile')->with('status', 'Email berhasil diverifikasi.');
     }
 
     public function resendVerification(Request $request)
@@ -155,7 +176,7 @@ class AuthController extends Controller
 
     public function resetPasswordForm(string $token)
     {
-        return view('auth.reset-password', [
+        return view('pages.auth.reset-password', [
             'title' => 'Reset Password',
             'token' => $token,
         ]);
@@ -167,6 +188,8 @@ class AuthController extends Controller
             'token'    => 'required',
             'email'    => 'required|email',
             'password' => 'required|min:6|confirmed',
+        ], [
+            'password.confirmed' => 'Konfirmasi password tidak cocok.',
         ]);
 
         $status = Password::reset(

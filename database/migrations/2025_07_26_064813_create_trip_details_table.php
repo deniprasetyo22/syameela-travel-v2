@@ -14,16 +14,15 @@ return new class extends Migration
         Schema::create('trip_details', function (Blueprint $table) {
             $table->id();
             $table->foreignId('registration_id')->constrained('registrations')->onDelete('cascade');
-            $table->string('trip_status', 50);
+            $table->text('visa');
             $table->dateTime('departure_date');
+            $table->dateTime('return_date');
             $table->string('gathering_location');
             $table->string('guide_name');
             $table->string('airline');
-            $table->integer('flight_number');
+            $table->string('flight_number');
             $table->text('ticket');
             $table->text('hotel_info');
-            $table->text('room_info');
-            $table->text('uniform_info');
             $table->text('equipment_info');
             $table->timestamps();
         });

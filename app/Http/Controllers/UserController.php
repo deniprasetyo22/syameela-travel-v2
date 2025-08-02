@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\UserProfile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -17,7 +18,7 @@ class UserController extends Controller
     {
         $search = $request->get('search');
 
-        $users = $search ? User::search($search)->paginate(10) : User::latest()->paginate(10);
+        $users = $search ? User::search($search)->latest()->paginate(10) : User::latest()->paginate(10);
 
         $data = [
             'title' => 'User',
@@ -88,7 +89,7 @@ class UserController extends Controller
             'user_id' => $user->id
         ]);
 
-        return redirect()->route('users')->with('success', 'Pengguna berhasil ditambahkan.');
+        return redirect()->route('users-dashboard')->with('success', 'Pengguna berhasil ditambahkan.');
     }
 
     /**
@@ -151,7 +152,7 @@ class UserController extends Controller
                 : $user->password, // tetap gunakan password lama jika tidak diganti
         ]);
 
-        return redirect()->route('users')->with('success', 'Pengguna berhasil diperbarui.');
+        return redirect()->route('users-dashboard')->with('success', 'Pengguna berhasil diperbarui.');
     }
 
     /**
@@ -161,13 +162,54 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
 
-        // Hapus profil terlebih dahulu (jika ada)
+        // Hapus dokumen jika ada
+        if ($user->documents) {
+            $documents = $user->documents;
+
+            $fields = [
+                'id_card',
+                'family_card',
+                'passport',
+                'photo',
+                'marriage_book',
+                'vaccine_certificate',
+            ];
+
+            foreach ($fields as $field) {
+                $path = $documents->$field;
+
+                if ($path) {
+                    $storagePath = str_replace('/storage/', '', $path);
+
+                    if (Storage::disk('public')->exists($storagePath)) {
+                        Storage::disk('public')->delete($storagePath);
+                    }
+                }
+            }
+
+            // Hapus folder documents/{user_id} sekaligus (jika masih ada sisa file)
+            Storage::disk('public')->deleteDirectory("images/documents/{$user->id}");
+
+            $documents->delete();
+        }
+
+        // Hapus foto profil jika ada
+        if ($user->profile && $user->profile->profile_picture) {
+            $oldPath = str_replace('/storage/', '', $user->profile->profile_picture);
+            if (Storage::disk('public')->exists($oldPath)) {
+                Storage::disk('public')->delete($oldPath);
+            }
+        }
+
+        // Hapus profil
         if ($user->profile) {
             $user->profile->delete();
         }
 
+        // Hapus user
         $user->delete();
 
-        return redirect()->route('users')->with('success', 'Pengguna berhasil dihapus.');
+        return redirect()->route('users-dashboard')->with('success', 'Pengguna beserta semua dokumen berhasil dihapus.');
     }
+
 }

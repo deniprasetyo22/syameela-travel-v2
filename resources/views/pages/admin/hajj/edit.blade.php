@@ -29,7 +29,7 @@
                             <input type="text" name="name" id="name"
                                 value="{{ old('name', $data['package']->name) }}"
                                 class="@error('name') border-red-500 @else border-gray-300 @enderror block w-full rounded-lg border bg-gray-50 p-2.5 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
-                                placeholder="Nama Paket" required autofocus>
+                                placeholder="Nama Paket" required>
                         </div>
 
                         <div class="w-full">

@@ -7,11 +7,31 @@
                     <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                         Masuk ke Akun Anda
                     </h1>
+                    @if ($errors->any())
+                        <div class="mb-4 flex items-center rounded-lg bg-red-50 p-4 text-sm text-red-800 dark:bg-gray-800 dark:text-red-400"
+                            role="alert">
+                            <ul class="list-inside list-disc pl-4">
+                                @foreach ($errors->all() as $error)
+                                    <li class="font-medium">
+                                        {{ $error }}
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                    @if (session('status'))
+                        <div class="mb-4 rounded-lg bg-green-100 p-3 text-sm text-green-700">
+                            {{ session('status') === __('passwords.reset')
+                                ? 'Password berhasil direset. Silakan login dengan password baru Anda.'
+                                : session('status') }}
+                        </div>
+                    @endif
                     <form class="space-y-4 md:space-y-6" action="{{ route('attempt_login') }}" method="POST">
                         @csrf
                         <div>
                             <label for="email"
-                                class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Alamat Email</label>
+                                class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Alamat
+                                Email</label>
                             <input type="email" name="email" id="email"
                                 class="focus:ring-primary-600 focus:border-primary-600 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                                 placeholder="email@example.com" required="">

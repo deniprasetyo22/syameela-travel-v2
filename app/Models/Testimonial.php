@@ -13,12 +13,20 @@ class Testimonial extends Model
     protected $table = 'testimonials';
 
     protected $fillable = [
-        'user_id',
+        'name',
         'content',
     ];
 
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function scopeSearch($query, $keyword)
+    {
+        return $query->where(function ($q) use ($keyword) {
+            $q->where('name', 'like', '%' . $keyword . '%')
+                ->orWhere('content', 'like', '%' . $keyword . '%');
+        });
     }
 }

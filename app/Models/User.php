@@ -89,14 +89,6 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * Get the activity logs for the user.
-     */
-    public function activityLogs(): HasMany
-    {
-        return $this->hasMany(ActivityLog::class);
-    }
-
-    /**
      * Get the testimonials for the user.
      */
     public function testimonials(): HasMany
@@ -118,5 +110,9 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->role_id == 1;
     }
 
+    public function hasVerifiedEmail()
+    {
+        return $this->email_verified_at !== null;
+    }
 
 }

@@ -11,7 +11,7 @@
                 <div class="flex flex-col items-center justify-between py-2 md:flex-row md:space-x-4">
                     {{-- Bagian Search dan Tambah Pengguna (tidak ada perubahan) --}}
                     <div class="w-full md:w-1/2">
-                        <form class="flex items-center gap-4" method="GET" action="{{ route('users') }}">
+                        <form class="flex items-center gap-4" method="GET" action="{{ route('users-dashboard') }}">
                             <label for="simple-search" class="sr-only">Pencarian</label>
                             <div class="relative w-full">
                                 <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
@@ -26,7 +26,7 @@
                                     class="focus:ring-primary-500 focus:border-primary-500 dark:focus:ring-primary-500 dark:focus:border-primary-500 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2 pl-10 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
                                     placeholder="Cari nama, username, email">
                             </div>
-                            <a href="{{ route('users') }}"
+                            <a href="{{ route('users-dashboard') }}"
                                 class="flex items-center justify-center rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
                                 Reset
                             </a>
@@ -138,7 +138,7 @@
                                                         class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
                                                         Yakin ingin menghapus <b>{{ $user->full_name }}</b>?
                                                     </h3>
-                                                    <form action="{{ route('destroy-user', $user->id) }}"
+                                                    <form action="{{ route('delete-user', $user->id) }}"
                                                         method="POST">
                                                         @csrf
                                                         @method('DELETE')

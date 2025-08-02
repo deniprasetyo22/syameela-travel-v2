@@ -18,18 +18,10 @@ class UserDocument extends Model
         'family_card',
         'passport',
         'photo',
-        'marriage_certificate',
-        'vaccine',
+        'marriage_book',
+        'vaccine_certificate',
         'verified_at',
     ];
-
-    // protected function casts(): array
-    // {
-    //     return [
-    //         'verified_at' => 'datetime',
-    //         'uploaded_at' => 'datetime',
-    //     ];
-    // }
 
     public function user(): BelongsTo
     {

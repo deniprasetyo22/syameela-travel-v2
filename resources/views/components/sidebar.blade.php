@@ -8,7 +8,7 @@
                 <ul class="space-y-2">
                     <li>
                         <a href="{{ route('admin-dashboard') }}"
-                            class="group flex items-center rounded-lg p-2 text-base font-medium text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                            class="{{ request()->routeIs('admin-dashboard') ? 'bg-blue-100 dark:bg-gray-700 dark:text-white' : 'text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700' }} group flex items-center rounded-lg p-2 text-base font-medium">
                             <svg class="h-6 w-6 text-gray-500 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
                                 fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z" />
@@ -18,8 +18,8 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('users') }}"
-                            class="group flex items-center rounded-lg p-2 text-base font-medium text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                        <a href="{{ route('users-dashboard') }}"
+                            class="{{ request()->routeIs('users-dashboard', 'create-user', 'show-user', 'edit-user') ? 'bg-blue-100 dark:bg-gray-700 dark:text-white' : 'text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700' }} group flex items-center rounded-lg p-2 text-base font-medium">
                             <i
                                 class="fa-solid fa-users flex w-6 justify-center text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"></i>
                             <span class="ml-3">Pengguna</span>
@@ -27,7 +27,7 @@
                     </li>
                     <li>
                         <a href="{{ route('hajj-dashboard') }}"
-                            class="group flex items-center rounded-lg p-2 text-base font-medium text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                            class="{{ request()->routeIs('hajj-dashboard', 'create-hajj', 'show-hajj', 'edit-hajj') ? 'bg-blue-100 dark:bg-gray-700 dark:text-white' : 'text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700' }} group flex items-center rounded-lg p-2 text-base font-medium">
                             <i
                                 class="fa-solid fa-list flex w-6 justify-center text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"></i>
                             <span class="ml-3">Haji</span>
@@ -35,26 +35,50 @@
                     </li>
                     <li>
                         <a href="{{ route('umrah-dashboard') }}"
-                            class="group flex items-center rounded-lg p-2 text-base font-medium text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                            class="{{ request()->routeIs('umrah-dashboard', 'create-umrah', 'show-umrah', 'edit-umrah') ? 'bg-blue-100 dark:bg-gray-700 dark:text-white' : 'text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700' }} group flex items-center rounded-lg p-2 text-base font-medium">
                             <i
                                 class="fa-solid fa-list flex w-6 justify-center text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"></i>
                             <span class="ml-3">Umroh</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#"
-                            class="group flex items-center rounded-lg p-2 text-base font-medium text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                        <a href="{{ route('transaction-dashboard') }}"
+                            class="{{ request()->routeIs('transaction-dashboard', 'show-transaction') ? 'bg-blue-100 dark:bg-gray-700 dark:text-white' : 'text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700' }} group flex items-center rounded-lg p-2 text-base font-medium">
                             <i
                                 class="fa-solid fa-dollar-sign flex w-6 justify-center text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"></i>
-                            <span class="ml-3">Pembayaran</span>
+                            <span class="ml-3">Transaksi</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#"
-                            class="group flex items-center rounded-lg p-2 text-base font-medium text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                        <a href="{{ route('trip-dashboard') }}"
+                            class="{{ request()->routeIs('trip-dashboard', 'create-trip', 'show-trip', 'edit-trip') ? 'bg-blue-100 dark:bg-gray-700 dark:text-white' : 'text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700' }} group flex items-center rounded-lg p-2 text-base font-medium">
                             <i
                                 class="fa-solid fa-calendar-days flex w-6 justify-center text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"></i>
-                            <span class="ml-3">Jadwal</span>
+                            <span class="ml-3">Perjalanan</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('gallery-dashboard') }}"
+                            class="{{ request()->routeIs('gallery-dashboard', 'create-gallery', 'show-gallery', 'edit-gallery') ? 'bg-blue-100 dark:bg-gray-700 dark:text-white' : 'text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700' }} group flex items-center rounded-lg p-2 text-base font-medium">
+                            <i
+                                class="fa-solid fa-images flex w-6 justify-center text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"></i>
+                            <span class="ml-3">Galeri</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('contact-dashboard') }}"
+                            class="{{ request()->routeIs('contact-dashboard', 'show-contact') ? 'bg-blue-100 dark:bg-gray-700 dark:text-white' : 'text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700' }} group flex items-center rounded-lg p-2 text-base font-medium">
+                            <i
+                                class="fa-solid fa-envelope flex w-6 justify-center text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"></i>
+                            <span class="ml-3">Pesan</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('testimonial-dashboard') }}"
+                            class="{{ request()->routeIs('testimonial-dashboard', 'create-testimonial', 'show-testimonial', 'edit-testimonial') ? 'bg-blue-100 dark:bg-gray-700 dark:text-white' : 'text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700' }} group flex items-center rounded-lg p-2 text-base font-medium">
+                            <i
+                                class="fa-solid fa-comments flex w-6 justify-center text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"></i>
+                            <span class="ml-3">Testimoni</span>
                         </a>
                     </li>
                     <li>
@@ -68,11 +92,11 @@
                         </button>
                         <ul id="dropdown-report" class="hidden space-y-2 py-2">
                             <li>
-                                <a href="#"
-                                    class="group flex w-full items-center rounded-lg p-2 pl-11 text-base font-medium text-gray-900 transition duration-75 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                                <a href="{{ route('report-jamaah') }}"
+                                    class="{{ request()->routeIs('report-jamaah') ? 'bg-blue-100 dark:bg-gray-700 dark:text-white' : 'text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700' }}group flex w-full items-center rounded-lg p-2 pl-11 text-base font-medium transition duration-75">
                                     <i
                                         class="fa-solid fa-users flex w-6 justify-center text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"></i>
-                                    <span class="ml-3">Pengguna</span>
+                                    <span class="ml-3">Jamaah</span>
                                 </a>
                             </li>
                             <li>
@@ -86,7 +110,7 @@
                                 </button>
                                 <ul id="dropdown-haji" class="hidden space-y-2 py-2">
                                     <li>
-                                        <a href="#"
+                                        <a href="{{ route('report-hajj-documents') }}"
                                             class="flex w-full items-center rounded-lg p-2 pl-20 text-base font-medium text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
                                             <i
                                                 class="fa-solid fa-folder-open flex w-6 justify-center text-gray-500"></i>
@@ -94,7 +118,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#"
+                                        <a href="{{ route('report-hajj-payments') }}"
                                             class="flex w-full items-center rounded-lg p-2 pl-20 text-base font-medium text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
                                             <i
                                                 class="fa-solid fa-dollar-sign flex w-6 justify-center text-gray-500"></i>
@@ -114,7 +138,7 @@
                                 </button>
                                 <ul id="dropdown-umroh" class="hidden space-y-2 py-2">
                                     <li>
-                                        <a href="#"
+                                        <a href="{{ route('report-umrah-documents') }}"
                                             class="flex w-full items-center rounded-lg p-2 pl-20 text-base font-medium text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
                                             <i
                                                 class="fa-solid fa-folder-open flex w-6 justify-center text-gray-500"></i>
@@ -122,7 +146,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#"
+                                        <a href="{{ route('report-umrah-payments') }}"
                                             class="flex w-full items-center rounded-lg p-2 pl-20 text-base font-medium text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
                                             <i
                                                 class="fa-solid fa-dollar-sign flex w-6 justify-center text-gray-500"></i>

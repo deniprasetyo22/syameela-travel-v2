@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('registration_id')->constrained('registrations')->onDelete('cascade');
             $table->decimal('amount', 15, 2);
-            $table->string('payment_proof');
-            $table->dateTime('paid_at');
-            $table->string('verification_status', 50);
+            $table->string('payment_proof')->nullable();
+            $table->dateTime('paid_at')->nullable();
+            $table->string('verification_status', 50)->nullable();
             $table->timestamps();
         });
     }
