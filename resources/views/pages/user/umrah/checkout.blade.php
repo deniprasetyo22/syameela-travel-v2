@@ -302,15 +302,18 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const requiredFields = ['id_card', 'family_card', 'passport', 'photo'];
+            const requiredDocs = ['id_card', 'family_card', 'passport', 'photo'];
             const userDocuments = @json($data['user']->documents ?? []);
+            const nationalId = "{{ $data['user']->profile->national_id }}";
+            const familyCardNumber = "{{ $data['user']->profile->family_card_number }}";
 
             const submitBtn = document.getElementById('submitBtn');
             const message = document.getElementById('missing-message');
 
-            const missing = requiredFields.some(field => !userDocuments[field]);
+            const missingDocs = requiredDocs.some(field => !userDocuments[field]);
+            const missingProfile = !nationalId || !familyCardNumber;
 
-            if (missing) {
+            if (missingDocs || missingProfile) {
                 submitBtn.disabled = true;
                 submitBtn.classList.add('opacity-50', 'cursor-not-allowed', 'bg-gray-600');
                 submitBtn.classList.remove('bg-blue-600', 'hover:bg-blue-700');

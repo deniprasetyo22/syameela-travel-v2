@@ -1,4 +1,5 @@
 <x-layout :title="$data['title']">
+    {{-- Hero Section --}}
     <section id="hero" class="md:pt-30 bg-gray-500 bg-cover bg-center bg-no-repeat pt-20 bg-blend-multiply"
         style="background-image: url('{{ asset('img/hero.png') }}')">
         <div class="mx-auto grid max-w-screen-xl px-4 md:pt-20 lg:grid-cols-12 lg:gap-8 xl:gap-0">
@@ -17,6 +18,8 @@
             </div>
         </div>
     </section>
+
+    {{-- About Section --}}
     <section id="about" class="bg-gray-100 px-4 py-6 antialiased dark:bg-gray-900">
         <div class="mx-auto grid rounded-lg p-4 md:p-8 lg:grid-cols-12 lg:gap-8 lg:p-16 xl:gap-16 dark:bg-gray-800">
             <div class="me-auto place-self-center lg:col-span-7">
@@ -51,6 +54,8 @@
             </div>
         </div>
     </section>
+
+    {{-- Packages Section --}}
     <section id="packages" class="bg-white py-10 dark:bg-gray-900">
         <div class="mx-auto mb-20 max-w-screen-xl px-4">
             <div class="mb-6">
@@ -155,6 +160,8 @@
             </div>
         </div>
     </section>
+
+    {{-- Testimonials Section --}}
     <section id="testimonials" class="bg-gray-100 dark:bg-gray-900">
         <div class="mx-auto max-w-screen-xl px-4 py-8 text-center lg:px-6 lg:py-10">
             <div class="mx-auto max-w-screen-lg">
@@ -210,6 +217,8 @@
                 </a>
             </div>
     </section>
+
+    {{-- Gallery Section --}}
     <section id="gallery" class="mx-auto max-w-screen-xl bg-white px-4 py-10 dark:bg-gray-900">
         <div class="mx-auto max-w-screen-lg">
             <h2 class="mb-4 text-center text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white">
@@ -254,6 +263,7 @@
         </div>
     </section>
 
+    {{-- Script Select Gallery by Category --}}
     <script>
         const activeClasses = [
             'text-blue-700', 'hover:text-white', 'border-blue-600', 'hover:bg-blue-700',

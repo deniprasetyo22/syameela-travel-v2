@@ -309,6 +309,16 @@
                 message.classList.remove('hidden');
             }
         });
+
+
+        function toggleInstallment(show) {
+            const section = document.getElementById('installmentOptions');
+            if (show) {
+                section.classList.remove('hidden');
+            } else {
+                section.classList.add('hidden');
+            }
+        }
     </script>
 
 

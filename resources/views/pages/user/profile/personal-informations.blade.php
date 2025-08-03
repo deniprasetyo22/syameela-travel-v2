@@ -80,8 +80,8 @@
                     <div class="w-full">
                         <label class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">NIK</label>
                         <p
-                            class="{{ $data['user']->profile->nik ? 'text-gray-800 dark:text-white' : 'text-gray-500' }} rounded-lg border border-gray-200 bg-gray-100 p-2.5 text-sm dark:bg-gray-700">
-                            {{ $data['user']->profile->nik ?? 'Anda belum mengisi NIK' }}
+                            class="{{ $data['user']->profile->national_id ? 'text-gray-800 dark:text-white' : 'text-gray-500' }} rounded-lg border border-gray-200 bg-gray-100 p-2.5 text-sm dark:bg-gray-700">
+                            {{ $data['user']->profile->national_id ?? 'Anda belum mengisi NIK' }}
                         </p>
                     </div>
                     <div class="w-full">

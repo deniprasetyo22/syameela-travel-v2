@@ -39,8 +39,8 @@
                             <tr>
                                 <th scope="col" class="px-4 py-3">No</th>
                                 <th scope="col" class="px-4 py-3">Nama</th>
-                                <th scope="col" class="px-4 py-3">Alamat Email</th>
                                 <th scope="col" class="px-4 py-3">Nomor Telepon</th>
+                                <th scope="col" class="px-4 py-3">Alamat Email</th>
                                 <th scope="col" class="px-4 py-3">Pesan</th>
                                 <th scope="col" class="px-4 py-3">Dibuat Pada</th>
                                 <th scope="col" class="px-4 py-3">
