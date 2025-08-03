@@ -2,7 +2,7 @@
     @if (Auth::check() && Auth::user()->hasVerifiedEmail() && Auth::user()->role_id == 1)
         <footer class="bg-gray-100 p-4 md:ml-64 md:px-6 md:py-4 dark:bg-gray-800">
             <span class="flex justify-center text-sm text-gray-500 sm:text-center dark:text-gray-400">
-                ©{{ date('Y') }} Travel Syamilah. All Rights Reserved.
+                ©{{ date('Y') }} Syameela Travel. All Rights Reserved.
             </span>
         </footer>
     @else
@@ -11,9 +11,9 @@
                 <div class="md:flex md:justify-between">
                     <div class="mb-6 flex flex-col justify-between md:mb-0">
                         <div class="flex items-center">
-                            <img src="{{ asset('img/logo.png') }}" class="mr-3 h-8" alt="Logo Travel Syamilah" />
-                            <span class="self-center whitespace-nowrap text-2xl font-semibold dark:text-white">
-                                Travel Syamilah
+                            <img src="{{ asset('img/logo.png') }}" class="mr-3 h-8" alt="Logo Syameela Travel" />
+                            <span class="whitespace-wrap self-center text-2xl font-semibold dark:text-white">
+                                Syameela Travel
                             </span>
                         </div>
                         <div class="my-6 md:p-2">
@@ -87,7 +87,7 @@
                                 <li>
                                     <a href="mailto:travelsyameela@gmail.com" class="hover:underline">
                                         <i class="fa-solid fa-envelope"></i>
-                                        <span>travelsyameela@gmail.com</span>
+                                        <span>TravelSyameela</span>
                                     </a>
                                 </li>
                             </ul>
@@ -99,7 +99,7 @@
 
                 <div class="sm:flex sm:items-center sm:justify-between">
                     <span class="flex justify-center text-sm text-gray-500 sm:text-center dark:text-gray-400">
-                        ©{{ date('Y') }} Travel Syamilah. All Rights Reserved.
+                        ©{{ date('Y') }} Syameela Travel. All Rights Reserved.
                     </span>
                 </div>
             </div>

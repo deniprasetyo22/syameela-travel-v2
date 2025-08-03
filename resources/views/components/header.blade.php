@@ -10,10 +10,10 @@
             </a>
 
             <!-- User Section & Hamburger -->
-            <div class="space-x-3 md:order-2 md:flex md:space-x-0">
+            <div class="space-x-3 lg:order-2 lg:flex lg:space-x-0">
 
                 <!-- User Dropdown -->
-                <div class="hidden md:block">
+                <div class="hidden lg:block">
                     @if (Auth::check() && Auth::user()->hasVerifiedEmail())
                         <div>
                             <button type="button"
@@ -38,15 +38,15 @@
                                         class="block truncate text-sm text-gray-500 dark:text-gray-400">{{ Auth::user()->email }}</span>
                                     @if (Auth::user()->role->name == 'User')
                                         <a href="{{ route('profile') }}"
-                                            class="{{ request()->routeIs('profile') ? 'text-white bg-blue-600 md:text-blue-700 md:bg-transparent' : 'text-gray-900 hover:text-blue-700 dark:text-white dark:hover:text-blue-400' }} mt-2 block rounded-md px-4 py-2 text-sm font-medium text-gray-900 hover:bg-blue-200 dark:text-white dark:hover:bg-gray-600">
+                                            class="{{ request()->routeIs('profile') ? 'text-white bg-blue-600 lg:text-blue-700 lg:bg-transparent' : 'text-gray-900 hover:text-blue-700 dark:text-white dark:hover:text-blue-400' }} mt-2 block rounded-md px-4 py-2 text-sm font-medium text-gray-900 hover:bg-blue-200 dark:text-white dark:hover:bg-gray-600">
                                             Profil
                                         </a>
                                         <a href="{{ route('my-transactions') }}"
-                                            class="{{ request()->routeIs('my-transactions', 'show-my-transaction') ? 'text-white bg-blue-600 md:text-blue-700 md:bg-transparent' : 'text-gray-900 hover:text-blue-700 dark:text-white dark:hover:text-blue-400' }} block rounded-md px-4 py-2 text-sm font-medium text-gray-900 hover:bg-blue-200 dark:text-white dark:hover:bg-gray-600">
+                                            class="{{ request()->routeIs('my-transactions', 'show-my-transaction') ? 'text-white bg-blue-600 lg:text-blue-700 lg:bg-transparent' : 'text-gray-900 hover:text-blue-700 dark:text-white dark:hover:text-blue-400' }} block rounded-md px-4 py-2 text-sm font-medium text-gray-900 hover:bg-blue-200 dark:text-white dark:hover:bg-gray-600">
                                             Transaksi
                                         </a>
                                         <a href="{{ route('my-trips') }}"
-                                            class="{{ request()->routeIs('my-trips', 'show-my-trip') ? 'text-white bg-blue-600 md:text-blue-700 md:bg-transparent' : 'text-gray-900 hover:text-blue-700 dark:text-white dark:hover:text-blue-400' }} block rounded-md px-4 py-2 text-sm font-medium text-gray-900 hover:bg-blue-200 dark:text-white dark:hover:bg-gray-600">
+                                            class="{{ request()->routeIs('my-trips', 'show-my-trip') ? 'text-white bg-blue-600 lg:text-blue-700 lg:bg-transparent' : 'text-gray-900 hover:text-blue-700 dark:text-white dark:hover:text-blue-400' }} block rounded-md px-4 py-2 text-sm font-medium text-gray-900 hover:bg-blue-200 dark:text-white dark:hover:bg-gray-600">
                                             Informasi Keberangkatan
                                         </a>
                                     @endif
@@ -63,7 +63,7 @@
                         </div>
                     @else
                         <!-- Tombol Login / Register Desktop -->
-                        <div class="hidden space-x-2 md:flex">
+                        <div class="hidden space-x-2 lg:flex">
                             <a href="{{ route('login') }}"
                                 class="rounded-lg border border-gray-300 bg-white px-5 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:hover:border-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-700">
                                 Masuk
@@ -80,7 +80,7 @@
                 @if (Auth::check() && Auth::user()->role->name == 'Admin')
                     <button data-drawer-target="drawer-navigation" data-drawer-toggle="drawer-navigation"
                         aria-controls="drawer-navigation" type="button"
-                        class="inline-flex items-center rounded-lg p-2 text-sm text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 md:hidden dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
+                        class="inline-flex items-center rounded-lg p-2 text-sm text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 lg:hidden dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
                         <span class="sr-only">Open sidebar</span>
                         <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 20 20">
                             <path clip-rule="evenodd" fill-rule="evenodd"
@@ -89,7 +89,7 @@
                     </button>
                 @else
                     <button data-collapse-toggle="navbar-sticky" type="button"
-                        class="inline-flex h-10 w-10 items-center justify-center rounded-lg p-2 text-sm text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 md:hidden dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                        class="inline-flex h-10 w-10 items-center justify-center rounded-lg p-2 text-sm text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 lg:hidden dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
                         aria-controls="navbar-sticky" aria-expanded="false">
                         <span class="sr-only">Open main menu</span>
                         <svg class="h-5 w-5" fill="none" viewBox="0 0 17 14">
@@ -102,74 +102,74 @@
 
             <!-- Main Menu -->
             @if (!Auth::check() || !Auth::user()->hasVerifiedEmail() || Auth::user()->role->name != 'Admin')
-                <div class="hidden w-full items-center justify-between md:order-1 md:flex md:w-auto" id="navbar-sticky">
+                <div class="hidden w-full items-center justify-between lg:order-1 lg:flex lg:w-auto" id="navbar-sticky">
                     <ul
-                        class="mt-4 flex flex-col rounded-lg border border-gray-100 bg-gray-50 p-4 font-medium md:mt-0 md:flex-row md:space-x-8 md:border-0 md:bg-white md:p-0 rtl:space-x-reverse dark:border-gray-700 dark:bg-gray-800 md:dark:bg-gray-900">
+                        class="mt-4 flex flex-col rounded-lg border border-gray-100 bg-gray-50 p-4 font-medium lg:mt-0 lg:flex-row lg:space-x-8 lg:border-0 lg:bg-white lg:p-0 rtl:space-x-reverse dark:border-gray-700 dark:bg-gray-800 lg:dark:bg-gray-900">
 
                         <!-- Link Utama -->
                         <li>
                             <a href="{{ route('home') }}"
-                                class="{{ request()->routeIs('home') ? 'text-white bg-blue-600 md:text-blue-700 md:bg-transparent' : 'text-gray-900 hover:text-blue-700 dark:text-white dark:hover:text-blue-400' }} block rounded-sm px-3 py-2 md:p-0">
+                                class="{{ request()->routeIs('home') ? 'text-white bg-blue-600 lg:text-blue-700 lg:bg-transparent' : 'text-gray-900 hover:text-blue-700 dark:text-white dark:hover:text-blue-400' }} block rounded-sm px-3 py-2 lg:p-0">
                                 Beranda
                             </a>
                         </li>
                         <li>
                             <a href="{{ route('hajj') }}"
-                                class="{{ request()->routeIs('hajj') ? 'text-white bg-blue-600 md:text-blue-700 md:bg-transparent' : 'text-gray-900 hover:text-blue-700 dark:text-white dark:hover:text-blue-400' }} block rounded-sm px-3 py-2 md:p-0">
+                                class="{{ request()->routeIs('hajj') ? 'text-white bg-blue-600 lg:text-blue-700 lg:bg-transparent' : 'text-gray-900 hover:text-blue-700 dark:text-white dark:hover:text-blue-400' }} block rounded-sm px-3 py-2 lg:p-0">
                                 Haji
                             </a>
                         </li>
                         <li>
                             <a href="{{ route('umrah') }}"
-                                class="{{ request()->routeIs('umrah') ? 'text-white bg-blue-600 md:text-blue-700 md:bg-transparent' : 'text-gray-900 hover:text-blue-700 dark:text-white dark:hover:text-blue-400' }} block rounded-sm px-3 py-2 md:p-0">
+                                class="{{ request()->routeIs('umrah') ? 'text-white bg-blue-600 lg:text-blue-700 lg:bg-transparent' : 'text-gray-900 hover:text-blue-700 dark:text-white dark:hover:text-blue-400' }} block rounded-sm px-3 py-2 lg:p-0">
                                 Umroh
                             </a>
                         </li>
                         <li>
                             <a href="{{ route('about') }}"
-                                class="{{ request()->routeIs('about') ? 'text-white bg-blue-600 md:text-blue-700 md:bg-transparent' : 'text-gray-900 hover:text-blue-700 dark:text-white dark:hover:text-blue-400' }} block rounded-sm px-3 py-2 md:p-0">
+                                class="{{ request()->routeIs('about') ? 'text-white bg-blue-600 lg:text-blue-700 lg:bg-transparent' : 'text-gray-900 hover:text-blue-700 dark:text-white dark:hover:text-blue-400' }} block rounded-sm px-3 py-2 lg:p-0">
                                 Tentang
                             </a>
                         </li>
                         <li>
                             <a href="{{ route('gallery') }}"
-                                class="{{ request()->routeIs('gallery') ? 'text-white bg-blue-600 md:text-blue-700 md:bg-transparent' : 'text-gray-900 hover:text-blue-700 dark:text-white dark:hover:text-blue-400' }} block rounded-sm px-3 py-2 md:p-0">
+                                class="{{ request()->routeIs('gallery') ? 'text-white bg-blue-600 lg:text-blue-700 lg:bg-transparent' : 'text-gray-900 hover:text-blue-700 dark:text-white dark:hover:text-blue-400' }} block rounded-sm px-3 py-2 lg:p-0">
                                 Galeri
                             </a>
                         </li>
                         <li>
                             <a href="{{ route('testimonials') }}"
-                                class="{{ request()->routeIs('testimonials') ? 'text-white bg-blue-600 md:text-blue-700 md:bg-transparent' : 'text-gray-900 hover:text-blue-700 dark:text-white dark:hover:text-blue-400' }} block rounded-sm px-3 py-2 md:p-0">
+                                class="{{ request()->routeIs('testimonials') ? 'text-white bg-blue-600 lg:text-blue-700 lg:bg-transparent' : 'text-gray-900 hover:text-blue-700 dark:text-white dark:hover:text-blue-400' }} block rounded-sm px-3 py-2 lg:p-0">
                                 Testimoni
                             </a>
                         </li>
                         <li>
                             <a href="{{ route('contact') }}"
-                                class="{{ request()->routeIs('contact') ? 'text-white bg-blue-600 md:text-blue-700 md:bg-transparent' : 'text-gray-900 hover:text-blue-700 dark:text-white dark:hover:text-blue-400' }} block rounded-sm px-3 py-2 md:p-0">
+                                class="{{ request()->routeIs('contact') ? 'text-white bg-blue-600 lg:text-blue-700 lg:bg-transparent' : 'text-gray-900 hover:text-blue-700 dark:text-white dark:hover:text-blue-400' }} block rounded-sm px-3 py-2 lg:p-0">
                                 Kontak
                             </a>
                         </li>
 
                         @if (Auth::check())
-                            <li class="md:hidden">
+                            <li class="lg:hidden">
                                 <a href="{{ route('profile') }}"
-                                    class="{{ request()->routeIs('profile') ? 'text-white bg-blue-600 md:text-blue-700 md:bg-transparent' : 'text-gray-900 hover:text-blue-700 dark:text-white dark:hover:text-blue-400' }} block rounded-sm px-3 py-2 md:p-0">
+                                    class="{{ request()->routeIs('profile') ? 'text-white bg-blue-600 lg:text-blue-700 lg:bg-transparent' : 'text-gray-900 hover:text-blue-700 dark:text-white dark:hover:text-blue-400' }} block rounded-sm px-3 py-2 lg:p-0">
                                     Profil
                                 </a>
                             </li>
-                            <li class="md:hidden">
+                            <li class="lg:hidden">
                                 <a href="{{ route('my-transactions') }}"
-                                    class="{{ request()->routeIs('my-transactions', 'show-my-transaction') ? 'text-white bg-blue-600 md:text-blue-700 md:bg-transparent' : 'text-gray-900 hover:text-blue-700 dark:text-white dark:hover:text-blue-400' }} block rounded-sm px-3 py-2 md:p-0">
+                                    class="{{ request()->routeIs('my-transactions', 'show-my-transaction') ? 'text-white bg-blue-600 lg:text-blue-700 lg:bg-transparent' : 'text-gray-900 hover:text-blue-700 dark:text-white dark:hover:text-blue-400' }} block rounded-sm px-3 py-2 lg:p-0">
                                     Transaksi
                                 </a>
                             </li>
-                            <li class="md:hidden">
+                            <li class="lg:hidden">
                                 <a href="{{ route('my-trips') }}"
-                                    class="{{ request()->routeIs('my-trips', 'show-my-trip') ? 'text-white bg-blue-600 md:text-blue-700 md:bg-transparent' : 'text-gray-900 hover:text-blue-700 dark:text-white dark:hover:text-blue-400' }} block rounded-sm px-3 py-2 md:p-0">
+                                    class="{{ request()->routeIs('my-trips', 'show-my-trip') ? 'text-white bg-blue-600 lg:text-blue-700 lg:bg-transparent' : 'text-gray-900 hover:text-blue-700 dark:text-white dark:hover:text-blue-400' }} block rounded-sm px-3 py-2 lg:p-0">
                                     Informasi Keberangkatan
                                 </a>
                             </li>
-                            <li class="mt-4 md:hidden">
+                            <li class="mt-4 lg:hidden">
                                 <a href="{{ route('logout') }}"
                                     class="block rounded-lg bg-red-600 px-3 py-2 text-center text-white hover:bg-red-700">
                                     Keluar
@@ -177,13 +177,13 @@
                             </li>
                         @else
                             <!-- Tombol Autentikasi untuk Mobile -->
-                            <li class="mb-2 md:hidden">
+                            <li class="mb-2 lg:hidden">
                                 <a href="{{ route('login') }}"
                                     class="block rounded-lg border border-gray-300 bg-white px-3 py-2 text-center text-gray-900 hover:bg-gray-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 dark:hover:text-blue-400">
                                     Masuk
                                 </a>
                             </li>
-                            <li class="md:hidden">
+                            <li class="lg:hidden">
                                 <a href="{{ route('register') }}"
                                     class="block rounded-lg bg-blue-700 px-3 py-2 text-center text-white hover:bg-blue-800 dark:bg-blue-600 dark:text-white dark:hover:bg-blue-700">
                                     Daftar
