@@ -24,7 +24,7 @@
         @vite('resources/css/app.css')
     </head>
 
-    <body class="flex min-h-screen flex-col font-sans">
+    <body class="flex min-h-screen flex-col">
         <!-- Header -->
         <x-header />
 

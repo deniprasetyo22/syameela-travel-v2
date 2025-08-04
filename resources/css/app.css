@@ -23,10 +23,10 @@
     --color-primary-800: #1e40af;
     --color-primary-900: #1e3a8a;
 
-    --font-sans: "Cinzel", "ui-sans-serif", "system-ui", "-apple-system";
-    --font-body: "Cinzel", "ui-sans-serif", "system-ui", "-apple-system";
-    /* --font-mono: "ui-monospace", "SFMono-Regular", "Menlo", "Monaco", "Consolas",
-        "Liberation Mono", "Courier New", "monospace"; */
+    --font-sans: "Playfair Display", "ui-sans-serif", "system-ui",
+        "-apple-system";
+    --font-body: "Playfair Display", "ui-sans-serif", "system-ui",
+        "-apple-system";
 }
 
 @custom-variant dark (&:where(.dark, .dark *));
