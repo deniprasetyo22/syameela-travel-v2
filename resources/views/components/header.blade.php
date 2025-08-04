@@ -5,7 +5,7 @@
             {{-- Logo --}}
             <a href="{{ auth()->check() ? '#' : route('home') }}" class="flex items-center space-x-3">
                 <img src="{{ asset('img/logo.png') }}" class="h-10" alt="Syameela Logo">
-                <span class="self-center whitespace-nowrap text-2xl font-semibold dark:text-white">Syameela Travel</span>
+                <span class="self-center whitespace-nowrap text-2xl font-semibold dark:text-white">SYAMEELA TRAVEL</span>
             </a>
 
             <!-- User Section & Hamburger -->
