@@ -5,7 +5,7 @@
             <h2 class="px-4 py-2 text-lg font-bold text-gray-900 dark:text-white">Paket Umroh</h2>
             <div class="mx-4 space-y-2">
                 <div class="w-full">
-                    <form class="flex items-center gap-4" method="GET" action="{{ route('umrah') }}">
+                    <form class="flex items-center gap-4" method="GET" action="{{ route('umrah-list') }}">
                         <label for="simple-search" class="sr-only">Pencarian</label>
                         <div class="relative w-full">
                             <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
@@ -20,7 +20,7 @@
                                 class="focus:ring-primary-500 focus:border-primary-500 dark:focus:ring-primary-500 dark:focus:border-primary-500 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2 pl-10 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
                                 placeholder="Cari nama paket">
                         </div>
-                        <a href="{{ route('umrah') }}"
+                        <a href="{{ route('umrah-list') }}"
                             class="flex items-center justify-center rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
                             Reset
                         </a>

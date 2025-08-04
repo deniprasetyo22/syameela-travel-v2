@@ -55,7 +55,7 @@ class HajjController extends Controller
         $validated = $request->validate([
             'name'             => 'required|string|max:255|unique:packages,name',
             'description'      => 'required|string|max:5000',
-            'image'            => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image'            => 'required|image|mimes:jpeg,png,jpg,gif|max:3072',
             'price'            => 'required|numeric|min:0',
             'quota'            => 'required|integer|min:1',
             'departure_date'   => 'required|date_format:Y-m-d\TH:i',
@@ -70,7 +70,7 @@ class HajjController extends Controller
             'image.required'        => 'Gambar paket wajib diisi.',
             'image.image'           => 'File yang diunggah bukan gambar.',
             'image.mimes'           => 'Format gambar harus JPEG, PNG, JPG, atau GIF.',
-            'image.max'             => 'Ukuran gambar tidak boleh lebih dari 2MB.',
+            'image.max'             => 'Ukuran gambar tidak boleh lebih dari 3MB.',
             'price.required'           => 'Harga wajib diisi.',
             'quota.required'           => 'Kuota wajib diisi.',
             'departure_date.required'  => 'Tanggal keberangkatan wajib diisi.',
@@ -128,7 +128,7 @@ class HajjController extends Controller
         $validated = $request->validate([
             'name'             => 'required|string|max:255|unique:packages,name,' . $id,
             'description'      => 'required|string|max:5000',
-            'image'            => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image'            => 'nullable|image|mimes:jpeg,png,jpg,gif|max:3072',
             'price'            => 'required|numeric|min:0',
             'quota'            => 'required|integer|min:1',
             'departure_date'   => 'required|date_format:Y-m-d\TH:i',
@@ -142,7 +142,7 @@ class HajjController extends Controller
             'description.max'  => 'Deskripsi paket haji tidak boleh lebih dari 5000 karakter.',
             'image.image'      => 'File yang diunggah bukan gambar.',
             'image.mimes'      => 'Format gambar harus JPEG, PNG, JPG, atau GIF.',
-            'image.max'        => 'Ukuran gambar tidak boleh lebih dari 2MB.',
+            'image.max'        => 'Ukuran gambar tidak boleh lebih dari 3MB.',
             'price.required'   => 'Harga paket haji tidak boleh kosong.',
             'quota.required'   => 'Kuota paket haji tidak boleh kosong.',
             'departure_date.required' => 'Tanggal keberangkatan tidak boleh kosong.',
@@ -262,17 +262,21 @@ class HajjController extends Controller
             }
 
             DB::commit();
-            return redirect()->route('payments')->with('success', 'Registrasi berhasil.');
+            return redirect()->route('my-payments')->with('success', 'Registrasi berhasil.');
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->withErrors(['error' => 'Gagal memproses pendaftaran: ' . $e->getMessage()]);
         }
     }
 
-    public function list(){
+    public function list(Request $request)
+    {
+        $search = $request->get('search');
+        $packages = $search ? Package::search($search)->where('type', 'Haji')->latest()->paginate(5) : Package::where('type', 'Haji')->latest()->paginate(5);
+
         $data = [
             'title' => 'Hajj List',
-            'packages' => Package::where('type', 'Haji')->latest()->paginate(5),
+            'packages' => $packages,
         ];
         return view('pages.user.hajj.index', ['data' => $data]);
     }

@@ -48,7 +48,7 @@
                                     @endif
                                 </p>
                                 <p><strong>Total Pembayaran:</strong>
-                                    Rp{{ number_format($data['payment']->payments->sum('amount'), 0, ',', '.') }}
+                                    {{ Number::currency($data['payment']->package->price, 'Rp ', 'id', 0) }}
                                 </p>
                             </div>
                         </div>
@@ -149,7 +149,7 @@
                                                                     </svg>
                                                                     <span class="sr-only">Close modal</span>
                                                                 </button>
-                                                                <div class="p-4 text-center md:p-5">
+                                                                <div class="p-4 md:p-5">
                                                                     <form method="POST"
                                                                         action="{{ route('update-my-payment', $payment->id) }}"
                                                                         enctype="multipart/form-data">
@@ -157,9 +157,12 @@
                                                                         @method('PUT')
                                                                         <div class="p-6">
                                                                             <h3
-                                                                                class="mb-4 text-lg font-medium text-gray-900 dark:text-white">
+                                                                                class="mb-4 text-center text-lg font-medium text-gray-900 dark:text-white">
                                                                                 Unggah Bukti Pembayaran
                                                                             </h3>
+                                                                            <label for="payment_proof"><span
+                                                                                    class="mb-2 text-xs text-gray-400">*JPG,
+                                                                                    PNG (Max. 3MB)</span></label>
                                                                             <input type="file" name="payment_proof"
                                                                                 id="payment_proof"
                                                                                 class="block w-full cursor-pointer rounded-lg border border-gray-300 bg-gray-50 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-400"

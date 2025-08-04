@@ -144,7 +144,7 @@
 
                     <div class="w-full">
                         <label class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
-                            Foto
+                            Foto <span class="text-xs text-gray-400">*JPG, PNG (Max. 3MB)</span>
                         </label>
                         <input type="file" name="profile_picture" id="profile_picture"
                             class="@error('profile_picture') border-red-500 @else border-gray-300 @enderror block w-full cursor-pointer rounded-lg border bg-gray-50 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-400"

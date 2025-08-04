@@ -10,42 +10,42 @@
                 @endif
 
                 <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">
-                    Detail Transaksi {{ $data['transaction']->registration_number }}
+                    Detail Pembayaran {{ $data['payment']->registration_number }}
                 </h2>
 
                 <div
                     class="shadow-xs mb-4 rounded-lg border border-gray-200 bg-gray-50 p-4 text-gray-900 dark:bg-gray-800 dark:text-white">
-                    <p><strong>Paket:</strong> {{ $data['transaction']->package->name }}</p>
+                    <p><strong>Paket:</strong> {{ $data['payment']->package->name }}</p>
                     <p><strong>Skema Pembayaran:</strong>
-                        @if ($data['transaction']->payment_scheme == 'full_payment')
+                        @if ($data['payment']->payment_scheme == 'full_payment')
                             <span>Pembayaran Penuh</span>
-                        @elseif ($data['transaction']->payment_scheme == 'installment_3')
+                        @elseif ($data['payment']->payment_scheme == 'installment_3')
                             <span>Cicilan 3x</span>
-                        @elseif ($data['transaction']->payment_scheme == 'installment_6')
+                        @elseif ($data['payment']->payment_scheme == 'installment_6')
                             <span>Cicilan 6x</span>
-                        @elseif ($data['transaction']->payment_scheme == 'installment_9')
+                        @elseif ($data['payment']->payment_scheme == 'installment_9')
                             <span>Cicilan 9x</span>
-                        @elseif ($data['transaction']->payment_scheme == 'ccl')
+                        @elseif ($data['payment']->payment_scheme == 'ccl')
                             <span>Tempo</span>
                         @endif
                     </p>
                     <p><strong>Status:</strong>
-                        @if ($data['transaction']->status == 'unpaid')
+                        @if ($data['payment']->status == 'unpaid')
                             <span>
                                 Belum Dibayar
                             </span>
-                        @elseif ($data['transaction']->status == 'processing')
+                        @elseif ($data['payment']->status == 'processing')
                             <span>
                                 Sedang diproses
                             </span>
-                        @elseif ($data['transaction']->status == 'paid')
+                        @elseif ($data['payment']->status == 'paid')
                             <span>
                                 Lunas
                             </span>
                         @endif
                     </p>
                     <p><strong>Total Pembayaran:</strong>
-                        Rp{{ number_format($data['transaction']->payments->sum('amount'), 0, ',', '.') }}</p>
+                        Rp{{ number_format($data['payment']->payments->sum('amount'), 0, ',', '.') }}</p>
                 </div>
 
                 <div
@@ -61,8 +61,8 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @if ($data['transaction']->payments->isNotEmpty())
-                                @foreach ($data['transaction']->payments as $index => $payment)
+                            @if ($data['payment']->payments->isNotEmpty())
+                                @foreach ($data['payment']->payments as $index => $payment)
                                     <tr class="odd:bg-white even:bg-gray-50 dark:border-gray-700">
                                         <td class="px-4 py-3">{{ $index + 1 }}</td>
                                         <td class="px-4 py-3">
@@ -124,7 +124,7 @@
                                                         </button>
                                                         <div class="p-4 text-center md:p-5">
                                                             <form method="POST"
-                                                                action="{{ route('update-transaction', $payment->id) }}">
+                                                                action="{{ route('update-payment', $payment->id) }}">
                                                                 @csrf
                                                                 @method('PUT')
                                                                 <div class="p-6">
@@ -176,7 +176,7 @@
                     </table>
                 </div>
                 <div class="mt-6">
-                    <a href="{{ route('transaction-dashboard') }}"
+                    <a href="{{ route('payments-dashboard') }}"
                         class="mb-2 me-2 rounded-lg border border-gray-300 bg-white px-5 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:hover:border-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-700">
                         Kembali
                     </a>

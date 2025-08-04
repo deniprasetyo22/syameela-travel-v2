@@ -20,53 +20,57 @@ class PaymentController extends Controller
                 ->search($search)
                 ->filter($type);
 
-        $transactions = $query->latest()->paginate(10)->appends($request->all());
+        $payments = $query->latest()->paginate(10)->appends($request->all());
 
         $data = [
-            'title' => 'Transactions',
-            'transactions' => $transactions
+            'title' => 'Payments',
+            'payments' => $payments
         ];
-        return view('pages.admin.transaction.index', ['data' => $data]);
+        return view('pages.admin.payment.index', ['data' => $data]);
     }
 
     public function show(string $id)
     {
-        $transaction = Registration::find($id);
+        $payment = Registration::find($id);
 
         $data = [
-            'title' => 'Detail Transaction',
-            'transaction' => $transaction,
+            'title' => 'Detail Payment',
+            'payment' => $payment,
         ];
 
-        return view('pages.admin.transaction.show', ['data' => $data]);
+        return view('pages.admin.payment.show', ['data' => $data]);
     }
 
     public function update(Request $request, string $id)
     {
+        // Ambil data payment
         $payment = Payment::findOrFail($id);
         $payment->verification_status = $request->verification_status;
         $payment->save();
 
-        $transaction = $payment->registration;
+        // Ambil relasi registration dari payment
+        $registration = $payment->registration;
 
-        $allPaid = $transaction->payments->every(function ($p) {
+        // Cek apakah semua payment untuk registrasi ini sudah paid
+        $allPaid = $registration->payments->every(function ($p) {
             return $p->verification_status === 'paid';
         });
 
+        // Jika semua sudah paid, update status registrasi
         if ($allPaid) {
-            $transaction->status = 'paid';
-            $transaction->save();
+            $registration->status = 'paid';
+            $registration->save();
         }
 
-        return redirect()->route('show-transaction', ['id' => $transaction->id])
+        return redirect()->route('show-payment', ['id' => $registration->id])
                         ->with('success', 'Status pembayaran berhasil diperbarui.');
     }
 
     public function destroy(string $id)
     {
-        $transaction = Registration::findOrFail($id);
-        $transaction->delete();
-        return redirect()->route('transaction-dashboard')->with('success', 'Transaction berhasil dihapus.');
+        $payment = Registration::findOrFail($id);
+        $payment->delete();
+        return redirect()->route('payments-dashboard')->with('success', 'Transaction berhasil dihapus.');
     }
 
     public function index(Request $request)
@@ -102,12 +106,12 @@ class PaymentController extends Controller
     public function updateMyPayment(Request $request, string $id)
     {
         $request->validate([
-            'payment_proof' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:5120',
+            'payment_proof' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:3072',
         ], [
             'payment_proof.required' => 'Bukti pembayaran wajib diisi.',
             'payment_proof.image' => 'Bukti pembayaran harus berupa gambar.',
             'payment_proof.mimes' => 'Format gambar bukti pembayaran harus JPEG, PNG, JPG, GIF, atau SVG.',
-            'payment_proof.max' => 'Ukuran gambar bukti pembayaran tidak boleh lebih dari 5MB.',
+            'payment_proof.max' => 'Ukuran gambar bukti pembayaran tidak boleh lebih dari 3MB.',
         ]);
 
         $payment = Payment::findOrFail($id);
@@ -141,7 +145,7 @@ class PaymentController extends Controller
             'status' => 'processing'
         ]);
 
-        return redirect()->route('show-payment', ['id' => $payment->id])
+        return redirect()->route('show-my-payment', ['id' => $payment->id])
                         ->with('success', 'Status pembayaran berhasil diperbarui.');
     }
 }

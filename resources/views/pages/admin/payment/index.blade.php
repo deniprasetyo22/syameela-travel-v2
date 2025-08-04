@@ -9,8 +9,7 @@
                     </div>
                 @endif
                 <div class="flex flex-col items-center justify-between py-2 md:flex-row md:space-x-4">
-                    {{-- Bagian Search dan Tambah Pengguna (tidak ada perubahan) --}}
-                    <form method="GET" action="{{ route('transaction-dashboard') }}"
+                    <form method="GET" action="{{ route('payments-dashboard') }}"
                         class="flex w-full flex-col gap-2 md:flex-row md:items-center md:justify-between">
                         <div class="flex w-full gap-4 md:w-1/2">
                             <div class="relative w-full">
@@ -27,7 +26,7 @@
                                 </div>
                             </div>
 
-                            <a href="{{ route('transaction-dashboard') }}"
+                            <a href="{{ route('payments-dashboard') }}"
                                 class="flex items-center justify-center rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-800">
                                 Reset
                             </a>
@@ -60,48 +59,48 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @if ($data['transactions']->isEmpty())
+                            @if ($data['payments']->isEmpty())
                                 <tr>
                                     <td colspan="6" class="px-4 py-3 text-center">Tidak ada data</td>
                                 </tr>
                             @else
-                                @foreach ($data['transactions'] as $transaction)
+                                @foreach ($data['payments'] as $payment)
                                     @php
-                                        $dropdownId = 'dropdown-' . $transaction->id;
-                                        $buttonId = 'dropdown-button-' . $transaction->id;
-                                        $modalId = 'delete-modal-' . $transaction->id;
+                                        $dropdownId = 'dropdown-' . $payment->id;
+                                        $buttonId = 'dropdown-button-' . $payment->id;
+                                        $modalId = 'delete-modal-' . $payment->id;
                                     @endphp
                                     <tr class="odd:bg-white even:bg-gray-50 dark:border-gray-700">
                                         <td class="px-4 py-3">{{ $loop->iteration }}</td>
-                                        <td class="px-4 py-3">{{ $transaction->user->full_name }}</td>
-                                        <td class="px-4 py-3">{{ $transaction->package->name }}</td>
-                                        <td class="px-4 py-3">{{ $transaction->package->type }}</td>
-                                        <td class="px-4 py-3">{{ $transaction->registration_number }}</td>
+                                        <td class="px-4 py-3">{{ $payment->user->full_name }}</td>
+                                        <td class="px-4 py-3">{{ $payment->package->name }}</td>
+                                        <td class="px-4 py-3">{{ $payment->package->type }}</td>
+                                        <td class="px-4 py-3">{{ $payment->registration_number }}</td>
                                         <td class="px-4 py-3">
-                                            @if ($transaction->payment_scheme == 'full_payment')
+                                            @if ($payment->payment_scheme == 'full_payment')
                                                 <span>Pembayaran Penuh</span>
-                                            @elseif ($transaction->payment_scheme == 'installment_3')
+                                            @elseif ($payment->payment_scheme == 'installment_3')
                                                 <span>Cicilan 3x</span>
-                                            @elseif ($transaction->payment_scheme == 'installment_6')
+                                            @elseif ($payment->payment_scheme == 'installment_6')
                                                 <span>Cicilan 6x</span>
-                                            @elseif ($transaction->payment_scheme == 'installment_9')
+                                            @elseif ($payment->payment_scheme == 'installment_9')
                                                 <span>Cicilan 9x</span>
-                                            @elseif ($transaction->payment_scheme == 'ccl')
+                                            @elseif ($payment->payment_scheme == 'ccl')
                                                 <span>Tempo</span>
                                             @endif
                                         </td>
                                         <td class="px-4 py-3">
-                                            @if ($transaction->status == 'unpaid')
+                                            @if ($payment->status == 'unpaid')
                                                 <span
                                                     class="me-2 rounded-lg bg-red-100 px-2.5 py-0.5 text-xs font-medium text-red-800 dark:bg-red-900 dark:text-red-300">
                                                     Belum Dibayar
                                                 </span>
-                                            @elseif ($transaction->status == 'processing')
+                                            @elseif ($payment->status == 'processing')
                                                 <span
                                                     class="me-2 rounded-lg bg-yellow-100 px-2.5 py-0.5 text-xs font-medium text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300">
                                                     Sedang diproses
                                                 </span>
-                                            @elseif ($transaction->status == 'paid')
+                                            @elseif ($payment->status == 'paid')
                                                 <span
                                                     class="me-2 rounded-lg bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:bg-green-900 dark:text-green-300">
                                                     Lunas
@@ -123,7 +122,7 @@
                                                     <ul class="py-2 text-sm text-gray-700"
                                                         aria-labelledby="{{ $buttonId }}">
                                                         <li>
-                                                            <a href="{{ route('show-transaction', ['id' => $transaction->id]) }}"
+                                                            <a href="{{ route('show-payment', ['id' => $payment->id]) }}"
                                                                 class="block px-4 py-2 hover:bg-gray-100">Lihat</a>
                                                         </li>
                                                         <li>
@@ -166,9 +165,9 @@
                                                     <h3
                                                         class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
                                                         Yakin ingin menghapus transaksi
-                                                        <b>{{ $transaction->registration_number }}</b>?
+                                                        <b>{{ $payment->registration_number }}</b>?
                                                     </h3>
-                                                    <form action="{{ route('delete-transaction', $transaction->id) }}"
+                                                    <form action="{{ route('delete-payment', $payment->id) }}"
                                                         method="POST">
                                                         @csrf
                                                         @method('DELETE')
@@ -190,7 +189,7 @@
                         </tbody>
                     </table>
                     <div class="p-4">
-                        {{ $data['transactions']->links() }}
+                        {{ $data['payments']->links() }}
                     </div>
                 </div>
             </div>

@@ -50,7 +50,7 @@ class ProfileController extends Controller
             'family_card_number' => 'nullable|digits:16|unique:user_profiles,family_card_number,' . $profileId,
             'phone' => 'nullable|string|max:20',
             'address' => 'nullable|string|max:500',
-            'profile_picture' => 'nullable|image|max:2048',
+            'profile_picture' => 'nullable|image|max:3072',
         ], [
             'username.unique' => 'Username sudah digunakan oleh orang lain.',
             'email.unique' => 'Email sudah digunakan oleh orang lain.',
@@ -59,7 +59,7 @@ class ProfileController extends Controller
             'family_card_number.unique' => 'Nomor Kartu Keluarga sudah digunakan oleh orang lain.',
             'family_card_number.digits' => 'Nomor Kartu Keluarga harus terdiri dari 16 angka.',
             'profile_picture.image' => 'Format file harus gambar.',
-            'profile_picture.max' => 'Ukuran file maksimal 2MB.',
+            'profile_picture.max' => 'Ukuran file maksimal 3MB.',
         ]);
 
         // Update user

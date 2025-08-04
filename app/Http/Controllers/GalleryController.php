@@ -58,7 +58,7 @@ class GalleryController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'type' => 'required|string|max:255',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:5120',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:3072',
         ], [
             'title.required' => 'Judul wajib diisi.',
             'title.string' => 'Judul harus berupa teks.',
@@ -69,7 +69,7 @@ class GalleryController extends Controller
             'image.required' => 'Gambar wajib diisi.',
             'image.image' => 'File yang diunggah bukan gambar.',
             'image.mimes' => 'Format gambar harus JPEG, PNG, JPG, atau GIF.',
-            'image.max' => 'Ukuran gambar tidak boleh lebih dari 5MB.',
+            'image.max' => 'Ukuran gambar tidak boleh lebih dari 3MB.',
         ]);
 
         if($request->hasFile('image')) {
@@ -115,13 +115,13 @@ class GalleryController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'type' => 'required|string|max:255',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:3072',
         ], [
             'title.required' => 'Judul wajib diisi.',
             'type.required' => 'Tipe wajib diisi.',
             'image.image' => 'File yang diunggah bukan gambar.',
             'image.mimes' => 'Format gambar harus JPEG, PNG, JPG, atau GIF.',
-            'image.max' => 'Ukuran gambar tidak boleh lebih dari 5MB.',
+            'image.max' => 'Ukuran gambar tidak boleh lebih dari 3MB.',
         ]);
 
         // Jika gambar baru diupload

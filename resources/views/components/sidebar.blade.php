@@ -42,8 +42,8 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('transaction-dashboard') }}"
-                        class="{{ request()->routeIs('transaction-dashboard', 'show-transaction') ? 'bg-blue-100 dark:bg-gray-700 dark:text-white' : 'text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700' }} group flex items-center rounded-lg p-2 text-base font-medium">
+                    <a href="{{ route('payments-dashboard') }}"
+                        class="{{ request()->routeIs('payments-dashboard', 'show-payment') ? 'bg-blue-100 dark:bg-gray-700 dark:text-white' : 'text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700' }} group flex items-center rounded-lg p-2 text-base font-medium">
                         <i
                             class="fa-solid fa-dollar-sign flex w-6 justify-center text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"></i>
                         <span class="ml-3">Pembayaran</span>

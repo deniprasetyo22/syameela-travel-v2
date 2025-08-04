@@ -81,7 +81,7 @@
                         </div>
                         <div class="sm:col-span-2">
                             <label for="image" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
-                                Foto <span class="text-xs text-gray-400">*JPG, PNG (Max. 2MB)</span>
+                                Foto <span class="text-xs text-gray-400">*JPG, PNG (Max. 3MB)</span>
                             </label>
                             <input type="file" name="image" id="image" value="{{ old('image') }}"
                                 class="focus:ring-primary-600 focus:border-primary-600 dark:focus:ring-primary-500 dark:focus:border-primary-500 @error('image') border-red-500 @else border-gray-300 @enderror block w-full cursor-pointer rounded-lg border bg-gray-50 text-sm text-gray-900 focus:outline-none dark:border-gray-600 dark:bg-gray-700 dark:text-gray-400 dark:placeholder-gray-400"
@@ -97,7 +97,7 @@
                             </label>
                             <textarea rows="10" name="description" id="formTextArea"
                                 class="focus:ring-primary-600 focus:border-primary-600 dark:focus:ring-primary-500 dark:focus:border-primary-500 @error('description') border-red-500 @else border-gray-300 @enderror block w-full rounded-lg border bg-gray-50 p-2.5 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
-                                placeholder="Fasilitas">{{ old('description') }}</textarea>
+                                placeholder="Deskripsi">{{ old('description') }}</textarea>
                             @error('description')
                                 <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
                             @enderror
