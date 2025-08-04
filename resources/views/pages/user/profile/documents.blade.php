@@ -1,5 +1,6 @@
 <x-layout :title="$data['title']">
-    <div class="mx-4 mb-10 mt-20 grid gap-4 bg-white antialiased md:grid-cols-4 dark:bg-gray-900">
+    <div class="mx-4 mb-10 mt-20 grid gap-4 bg-white antialiased md:grid-cols-5 dark:bg-gray-900">
+        <x-main-menu-user />
         <div class="rounded-md bg-gray-50">
             <h2 class="my-2 text-center text-lg font-bold text-gray-900 dark:text-white">Profil Saya</h2>
             <ul class="mx-4 space-y-2" id="profile-tabs" role="tablist">

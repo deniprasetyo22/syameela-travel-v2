@@ -9,6 +9,7 @@ use App\Models\TripDetail;
 use App\Models\Registration;
 use Illuminate\Http\Request;
 use App\Models\ContactMessage;
+use App\Models\Manasik;
 
 class DashboardController extends Controller
 {
@@ -25,6 +26,7 @@ class DashboardController extends Controller
             'last_transactions' => Registration::latest()->take(5)->get(),
             'total_trips' => TripDetail::count(),
             'total_messages' => ContactMessage::count(),
+            'total_manasik' => Manasik::count()
         ];
 
         return view('pages.admin.dashboard', ['data' => $data]);

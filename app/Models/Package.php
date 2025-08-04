@@ -24,15 +24,6 @@ class Package extends Model
         'return_date',
     ];
 
-    // protected function casts(): array
-    // {
-    //     return [
-    //         'price' => 'decimal:2',
-    //         'departure_date' => 'datetime',
-    //         'return_date' => 'datetime',
-    //     ];
-    // }
-
     public function registrations(): HasMany
     {
         return $this->hasMany(Registration::class);

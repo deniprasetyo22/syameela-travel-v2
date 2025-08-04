@@ -82,7 +82,8 @@
                             <label for="phone"
                                 class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Nomor
                                 Telepon</label>
-                            <input type="number" name="phone" id="phone" value="{{ old('phone') }}"
+                            <input type="number" maxlength="15" name="phone" id="phone"
+                                value="{{ old('phone') }}"
                                 class="focus:ring-primary-600 focus:border-primary-600 @error('phone') border-red-500 @else border-gray-300 @enderror block w-full rounded-lg border bg-gray-50 p-2.5 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                                 placeholder="+62 123 456 789" required>
                             @error('phone')

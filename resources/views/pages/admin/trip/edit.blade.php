@@ -25,9 +25,7 @@
                             <label for="registration_id"
                                 class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Nomor
                                 Registrasi</label>
-                            <select name="registration_id" id="registration_id"
-                                class="focus:ring-primary-500 focus:border-primary-500 dark:focus:ring-primary-500 dark:focus:border-primary-500 @error('registration_id') border-red-500 @else border-gray-300 @enderror block w-full rounded-lg border bg-gray-50 p-2.5 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
-                                required>
+                            <select name="registration_id" id="registration_id" required>
                                 <option disabled
                                     {{ old('registration_id', $data['trip']->registration_id) ? '' : 'selected' }}>
                                     Pilih Nomor Registrasi
@@ -219,4 +217,18 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            new TomSelect("#registration_id", {
+                create: false,
+                placeholder: "Pilih Nomor Registrasi",
+                sortField: {
+                    field: "text",
+                    direction: "asc"
+                }
+            });
+        });
+    </script>
+
 </x-layout>

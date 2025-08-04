@@ -27,7 +27,7 @@ class GalleryController extends Controller
             'galleries' => $galleries,
         ];
 
-        return view('pages.user.main.gallery', ['data' => $data]);
+        return view('pages.guest.gallery', ['data' => $data]);
     }
 
     public function dashboard(Request $request)

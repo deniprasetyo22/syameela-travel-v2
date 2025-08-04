@@ -1,5 +1,6 @@
 <x-layout :title="$data['title']">
-    <div class="mx-4 mb-10 mt-20 grid gap-4 bg-white antialiased md:grid-cols-4 dark:bg-gray-900">
+    <div class="mx-4 mb-10 mt-20 grid gap-4 bg-white antialiased md:grid-cols-5 dark:bg-gray-900">
+        <x-main-menu-user />
         <div class="rounded-md bg-gray-50">
             <h2 class="my-2 text-center text-lg font-bold text-gray-900 dark:text-white">Profil Saya</h2>
             <ul class="mx-4 space-y-2" id="profile-tabs" role="tablist">
@@ -51,7 +52,7 @@
 
                 <div class="mb-6 w-full">
                     <label for="id_card" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
-                        KTP <span class="text-red-500">*</span>
+                        KTP <span class="text-red-500">*</span><span class="text-xs text-gray-400">(*Max 3MB)</span>
                     </label>
                     <input type="file" name="id_card" id="id_card"
                         class="@error('id_card') border-red-500 @else border-gray-300 @enderror block w-full cursor-pointer rounded-lg border bg-gray-50 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-400"
@@ -65,7 +66,7 @@
 
                 <div class="mb-6 w-full">
                     <label for="family_card" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
-                        KK <span class="text-red-500">*</span>
+                        KK <span class="text-red-500">*</span><span class="text-xs text-gray-400">(*Max 3MB)</span>
                     </label>
                     <input type="file" name="family_card" id="family_card"
                         class="@error('family_card') border-red-500 @else border-gray-300 @enderror block w-full cursor-pointer rounded-lg border bg-gray-50 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-400"
@@ -79,7 +80,7 @@
 
                 <div class="mb-6 w-full">
                     <label for="passport" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
-                        Paspor <span class="text-red-500">*</span>
+                        Paspor <span class="text-red-500">*</span> <span class="text-xs text-gray-400">(*Max 3MB)</span>
                     </label>
                     <input type="file" name="passport" id="passport"
                         class="@error('passport') border-red-500 @else border-gray-300 @enderror block w-full cursor-pointer rounded-lg border bg-gray-50 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-400"
@@ -93,7 +94,7 @@
 
                 <div class="mb-6 w-full">
                     <label for="photo" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
-                        Foto <span class="text-red-500">*</span>
+                        Foto <span class="text-red-500">*</span><span class="text-xs text-gray-400">(*Max 3MB)</span>
                     </label>
                     <input type="file" name="photo" id="photo"
                         class="@error('photo') border-red-500 @else border-gray-300 @enderror block w-full cursor-pointer rounded-lg border bg-gray-50 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-400"
@@ -107,7 +108,7 @@
 
                 <div class="mb-6 w-full">
                     <label for="marriage_book" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
-                        Buku Nikah
+                        Buku Nikah <span class="text-xs text-gray-400">(*Max 3MB)</span>
                     </label>
                     <input type="file" name="marriage_book" id="marriage_book"
                         class="@error('marriage_book') border-red-500 @else border-gray-300 @enderror block w-full cursor-pointer rounded-lg border bg-gray-50 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-400"
@@ -122,7 +123,7 @@
                 <div class="mb-6 w-full">
                     <label for="vaccine_certificate"
                         class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
-                        Surat Vaksin
+                        Surat Vaksin <span class="text-xs text-gray-400">(*Max 3MB)</span>
                     </label>
                     <input type="file" name="vaccine_certificate" id="vaccine_certificate"
                         class="@error('vaccine_certificate') border-red-500 @else border-gray-300 @enderror block w-full cursor-pointer rounded-lg border bg-gray-50 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-400"

@@ -44,6 +44,15 @@
                     </div>
                     <div class="flex items-center justify-between rounded-lg bg-white p-4 shadow-sm">
                         <div>
+                            <h5 class="mb-1 text-base font-medium text-gray-900">Manasik</h5>
+                            <p class="text-2xl font-bold text-gray-900">{{ $data['total_manasik'] }}</p>
+                        </div>
+                        <div>
+                            <i class="fa-solid fa-circle-notch animate-spin-slow text-3xl text-blue-600"></i>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between rounded-lg bg-white p-4 shadow-sm">
+                        <div>
                             <h5 class="mb-1 text-base font-medium text-gray-900">Perjalanan</h5>
                             <p class="text-2xl font-bold text-gray-900">{{ $data['total_trips'] }}</p>
                         </div>

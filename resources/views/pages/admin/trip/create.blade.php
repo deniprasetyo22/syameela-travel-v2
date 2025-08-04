@@ -24,15 +24,16 @@
                             <label for="registration_id"
                                 class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Nomor
                                 Registrasi</label>
-                            <select name="registration_id" id="registration_id"
-                                class="focus:ring-primary-500 focus:border-primary-500 dark:focus:ring-primary-500 dark:focus:border-primary-500 @error('registration_id') border-red-500 @else border-gray-300 @enderror block w-full rounded-lg border bg-gray-50 p-2.5 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
-                                required>
+                            <select id="registration_id" name="registration_id" class="">
                                 <option value="" disabled selected>Pilih Nomor Registrasi</option>
                                 @foreach ($data['transactions'] as $transaction)
-                                    <option value="{{ $transaction->id }}" @selected(old('registration_id') == $transaction->id)>
+                                    <option value="{{ $transaction->id }}"
+                                        data-departure="{{ $transaction->package->departure_date }}"
+                                        data-return="{{ $transaction->package->return_date }}">
                                         {{ $transaction->registration_number }}
                                     </option>
                                 @endforeach
+
                             </select>
                             @error('registration_id')
                                 <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
@@ -45,7 +46,7 @@
                             </label>
                             <input type="datetime-local" name="departure_date" id="departure_date"
                                 value="{{ old('departure_date') }}"
-                                class="focus:ring-primary-600 focus:border-primary-600 dark:focus:ring-primary-500 dark:focus:border-primary-500 @error('departure_date') border-red-500 @else border-gray-300 @enderror block w-full rounded-lg border bg-gray-50 p-2.5 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
+                                class="focus:ring-primary-600 focus:border-primary-600 dark:focus:ring-primary-500 dark:focus:border-primary-500 @error('departure_date') border-red-500 @else border-gray-300 @enderror block w-full rounded-lg border bg-white p-2.5 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
                                 required="">
                             @error('departure_date')
                                 <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
@@ -58,7 +59,7 @@
                             </label>
                             <input type="datetime-local" name="return_date" id="return_date"
                                 value="{{ old('return_date') }}"
-                                class="focus:ring-primary-600 focus:border-primary-600 dark:focus:ring-primary-500 dark:focus:border-primary-500 @error('return_date') border-red-500 @else border-gray-300 @enderror block w-full rounded-lg border bg-gray-50 p-2.5 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
+                                class="focus:ring-primary-600 focus:border-primary-600 dark:focus:ring-primary-500 dark:focus:border-primary-500 @error('return_date') border-red-500 @else border-gray-300 @enderror block w-full rounded-lg border bg-white p-2.5 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
                                 required="">
                             @error('return_date')
                                 <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
@@ -70,7 +71,7 @@
                                 Nama Pemandu
                             </label>
                             <input type="text" name="guide_name" id="guide_name" value="{{ old('guide_name') }}"
-                                class="focus:ring-primary-600 focus:border-primary-600 dark:focus:ring-primary-500 dark:focus:border-primary-500 @error('guide_name') border-red-500 @else border-gray-300 @enderror block w-full rounded-lg border bg-gray-50 p-2.5 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
+                                class="focus:ring-primary-600 focus:border-primary-600 dark:focus:ring-primary-500 dark:focus:border-primary-500 @error('guide_name') border-red-500 @else border-gray-300 @enderror block w-full rounded-lg border bg-white p-2.5 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
                                 placeholder="Nama Pemandu" required="">
                             @error('guide_name')
                                 <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
@@ -83,7 +84,7 @@
                             </label>
                             <input type="text" name="gathering_location" id="gathering_location"
                                 value="{{ old('gathering_location') }}"
-                                class="focus:ring-primary-600 focus:border-primary-600 dark:focus:ring-primary-500 dark:focus:border-primary-500 @error('gathering_location') border-red-500 @else border-gray-300 @enderror block w-full rounded-lg border bg-gray-50 p-2.5 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
+                                class="focus:ring-primary-600 focus:border-primary-600 dark:focus:ring-primary-500 dark:focus:border-primary-500 @error('gathering_location') border-red-500 @else border-gray-300 @enderror block w-full rounded-lg border bg-white p-2.5 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
                                 placeholder="Titik Kumpul" required="">
                             @error('gathering_location')
                                 <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
@@ -94,7 +95,7 @@
                                 Maskapai Penerbangan
                             </label>
                             <select name="airline" id="airline"
-                                class="focus:ring-primary-500 focus:border-primary-500 dark:focus:ring-primary-500 dark:focus:border-primary-500 @error('airline') border-red-500 @else border-gray-300 @enderror block w-full rounded-lg border bg-gray-50 p-2.5 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
+                                class="focus:ring-primary-500 focus:border-primary-500 dark:focus:ring-primary-500 dark:focus:border-primary-500 @error('airline') border-red-500 @else border-gray-300 @enderror block w-full rounded-lg border bg-white p-2.5 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
                                 required>
                                 <option value="" disabled selected>Pilih Maskapai Penegerbangan</option>
                                 <option value="Garuda Indonesia" @selected(old('airline') == 'Garuda Indonesia')>Garuda Indonesia</option>
@@ -119,7 +120,7 @@
                             </label>
                             <input type="text" name="flight_number" id="flight_number"
                                 value="{{ old('flight_number') }}"
-                                class="focus:ring-primary-600 focus:border-primary-600 dark:focus:ring-primary-500 dark:focus:border-primary-500 @error('flight_number') border-red-500 @else border-gray-300 @enderror block w-full rounded-lg border bg-gray-50 p-2.5 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
+                                class="focus:ring-primary-600 focus:border-primary-600 dark:focus:ring-primary-500 dark:focus:border-primary-500 @error('flight_number') border-red-500 @else border-gray-300 @enderror block w-full rounded-lg border bg-white p-2.5 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
                                 placeholder="Nomor Penerbangan" required="">
                             @error('flight_number')
                                 <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
@@ -130,7 +131,7 @@
                                 Visa <span class="text-xs text-gray-400">*PDF (Max. 5MB)</span>
                             </label>
                             <input type="file" name="visa" id="visa"
-                                class="focus:ring-primary-600 focus:border-primary-600 dark:focus:ring-primary-500 dark:focus:border-primary-500 @error('visa') border-red-500 @else border-gray-300 @enderror block w-full cursor-pointer rounded-lg border bg-gray-50 text-sm text-gray-900 focus:outline-none dark:border-gray-600 dark:bg-gray-700 dark:text-gray-400 dark:placeholder-gray-400"
+                                class="focus:ring-primary-600 focus:border-primary-600 dark:focus:ring-primary-500 dark:focus:border-primary-500 @error('visa') border-red-500 @else border-gray-300 @enderror block w-full cursor-pointer rounded-lg border bg-white text-sm text-gray-900 focus:outline-none dark:border-gray-600 dark:bg-gray-700 dark:text-gray-400 dark:placeholder-gray-400"
                                 required="" accept="application/pdf">
                             @error('visa')
                                 <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
@@ -142,7 +143,7 @@
                                 Tiket <span class="text-xs text-gray-400">*PDF (Max. 5MB)</span>
                             </label>
                             <input type="file" name="ticket" id="ticket"
-                                class="focus:ring-primary-600 focus:border-primary-600 dark:focus:ring-primary-500 dark:focus:border-primary-500 @error('ticket') border-red-500 @else border-gray-300 @enderror block w-full cursor-pointer rounded-lg border bg-gray-50 text-sm text-gray-900 focus:outline-none dark:border-gray-600 dark:bg-gray-700 dark:text-gray-400 dark:placeholder-gray-400"
+                                class="focus:ring-primary-600 focus:border-primary-600 dark:focus:ring-primary-500 dark:focus:border-primary-500 @error('ticket') border-red-500 @else border-gray-300 @enderror block w-full cursor-pointer rounded-lg border bg-white text-sm text-gray-900 focus:outline-none dark:border-gray-600 dark:bg-gray-700 dark:text-gray-400 dark:placeholder-gray-400"
                                 required="" accept="application/pdf">
                             @error('ticket')
                                 <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
@@ -154,7 +155,7 @@
                                 Informasi Hotel
                             </label>
                             <textarea rows="10" name="hotel_info" id="formTextArea"
-                                class="focus:ring-primary-600 focus:border-primary-600 dark:focus:ring-primary-500 dark:focus:border-primary-500 @error('hotel_info') border-red-500 @else border-gray-300 @enderror block w-full rounded-lg border bg-gray-50 p-2.5 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
+                                class="focus:ring-primary-600 focus:border-primary-600 dark:focus:ring-primary-500 dark:focus:border-primary-500 @error('hotel_info') border-red-500 @else border-gray-300 @enderror block w-full rounded-lg border bg-white p-2.5 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
                                 placeholder="Informasi Hotel">{{ old('hotel_info') }}</textarea>
                             @error('hotel_info')
                                 <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
@@ -166,7 +167,7 @@
                                 Informasi Perlengkapan
                             </label>
                             <textarea rows="10" name="equipment_info" id="formTextArea"
-                                class="focus:ring-primary-600 focus:border-primary-600 dark:focus:ring-primary-500 dark:focus:border-primary-500 @error('equipment_info') border-red-500 @else border-gray-300 @enderror block w-full rounded-lg border bg-gray-50 p-2.5 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
+                                class="focus:ring-primary-600 focus:border-primary-600 dark:focus:ring-primary-500 dark:focus:border-primary-500 @error('equipment_info') border-red-500 @else border-gray-300 @enderror block w-full rounded-lg border bg-white p-2.5 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
                                 placeholder="Informasi Perlengkapan">{{ old('equipment_info') }}</textarea>
                             @error('equipment_info')
                                 <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
@@ -187,4 +188,47 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const registrationSelect = document.getElementById('registration_id');
+            const departureInput = document.getElementById('departure_date');
+            const returnInput = document.getElementById('return_date');
+
+            function toLocalDatetimeString(dateString) {
+                const date = new Date(dateString);
+                const year = date.getFullYear();
+                const month = String(date.getMonth() + 1).padStart(2, '0');
+                const day = String(date.getDate()).padStart(2, '0');
+                const hours = String(date.getHours()).padStart(2, '0');
+                const minutes = String(date.getMinutes()).padStart(2, '0');
+                return `${year}-${month}-${day}T${hours}:${minutes}`;
+            }
+
+            registrationSelect.addEventListener('change', function() {
+                const selectedOption = registrationSelect.options[registrationSelect.selectedIndex];
+                const departureDate = selectedOption.getAttribute('data-departure');
+                const returnDate = selectedOption.getAttribute('data-return');
+
+                if (departureDate) {
+                    departureInput.value = toLocalDatetimeString(departureDate);
+                }
+
+                if (returnDate) {
+                    returnInput.value = toLocalDatetimeString(returnDate);
+                }
+            });
+
+            new TomSelect("#registration_id", {
+                create: false,
+                placeholder: "Pilih Nomor Registrasi",
+                sortField: {
+                    field: "text",
+                    direction: "asc"
+                }
+            });
+        });
+    </script>
+
+
 </x-layout>

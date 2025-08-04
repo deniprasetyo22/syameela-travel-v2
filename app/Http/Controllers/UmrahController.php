@@ -24,7 +24,7 @@ class UmrahController extends Controller
             'packages' => $packages,
         ];
 
-        return view('pages.user.umrah.index', ['data' => $data]);
+        return view('pages.guest.umrah', ['data' => $data]);
     }
 
     public function dashboard(Request $request)
@@ -207,19 +207,7 @@ class UmrahController extends Controller
             'package' => Package::findOrFail($id),
         ];
 
-        return view('pages.user.umrah.show', ['data' => $data]);
-    }
-
-    public function checkout($id)
-    {
-        $package = Package::findOrFail($id);
-        $user = Auth::user();
-        $data = [
-            'title' => 'Checkout Umrah Package',
-            'package' => $package,
-            'user' => $user,
-        ];
-        return view('pages.user.umrah.checkout', ['data' => $data]);
+        return view('pages.guest.show-umrah', ['data' => $data]);
     }
 
     public function submit(Request $request, $id)
@@ -279,5 +267,23 @@ class UmrahController extends Controller
             DB::rollBack();
             return redirect()->back()->withErrors(['error' => 'Gagal memproses pendaftaran: ' . $e->getMessage()]);
         }
+    }
+
+    public function list(){
+        $data = [
+            'title' => 'Umrah List',
+            'packages' => Package::where('type', 'Umroh')->latest()->paginate(5),
+        ];
+        return view('pages.user.umrah.index', ['data' => $data]);
+    }
+
+    public function showList($id){
+        $data = [
+            'title' => 'Umrah List',
+            'user' => Auth::user(),
+            'allPackages' => Package::where('type', 'Umroh')->latest()->paginate(5),
+            'package' => Package::findOrFail($id),
+        ];
+        return view('pages.user.umrah.show', ['data' => $data]);
     }
 }

@@ -129,42 +129,36 @@ class ProfileController extends Controller
         $user = auth()->user();
 
         $validated = $request->validate([
-            'id_card' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-            'family_card' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-            'passport' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-            'photo' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-            'marriage_book' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-            'vaccine_certificate' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'id_card' => 'nullable|image|mimes:jpg,jpeg,png|max:3074',
+            'family_card' => 'nullable|image|mimes:jpg,jpeg,png|max:3074',
+            'passport' => 'nullable|image|mimes:jpg,jpeg,png|max:3074',
+            'photo' => 'nullable|image|mimes:jpg,jpeg,png|max:3074',
+            'marriage_book' => 'nullable|image|mimes:jpg,jpeg,png|max:3074',
+            'vaccine_certificate' => 'nullable|image|mimes:jpg,jpeg,png|max:3074',
         ], [
             'id_card.image' => 'File KTP harus berupa gambar.',
             'id_card.mimes' => 'Format gambar KTP harus JPG, JPEG, atau PNG.',
-            'id_card.max' => 'Ukuran gambar KTP tidak boleh lebih dari 2MB.',
-            // 'id_card.uploaded' => 'Gagal mengunggah KTP. Silakan coba lagi.',
+            'id_card.max' => 'Ukuran gambar KTP tidak boleh lebih dari 3MB.',
 
             'family_card.image' => 'File KK harus berupa gambar.',
             'family_card.mimes' => 'Format gambar KK harus JPG, JPEG, atau PNG.',
-            'family_card.max' => 'Ukuran gambar KK tidak boleh lebih dari 2MB.',
-            // 'family_card.uploaded' => 'Gagal mengunggah KK. Silakan coba lagi.',
+            'family_card.max' => 'Ukuran gambar KK tidak boleh lebih dari 3MB.',
 
             'passport.image' => 'File Paspor harus berupa gambar.',
             'passport.mimes' => 'Format gambar Paspor harus JPG, JPEG, atau PNG.',
-            'passport.max' => 'Ukuran gambar Paspor tidak boleh lebih dari 2MB.',
-            // 'passport.uploaded' => 'Gagal mengunggah Paspor. Silakan coba lagi.',
+            'passport.max' => 'Ukuran gambar Paspor tidak boleh lebih dari 3MB.',
 
             'photo.image' => 'File Foto harus berupa gambar.',
             'photo.mimes' => 'Format gambar Foto harus JPG, JPEG, atau PNG.',
-            'photo.max' => 'Ukuran gambar Foto tidak boleh lebih dari 2MB.',
-            // 'photo.uploaded' => 'Gagal mengunggah Foto. Silakan coba lagi.',
+            'photo.max' => 'Ukuran gambar Foto tidak boleh lebih dari 3MB.',
 
             'marriage_book.image' => 'File Buku Nikah harus berupa gambar.',
             'marriage_book.mimes' => 'Format gambar Buku Nikah harus JPG, JPEG, atau PNG.',
-            'marriage_book.max' => 'Ukuran gambar Buku Nikah tidak boleh lebih dari 2MB.',
-            // 'marriage_book.uploaded' => 'Gagal mengunggah Buku Nikah. Silakan coba lagi.',
+            'marriage_book.max' => 'Ukuran gambar Buku Nikah tidak boleh lebih dari 3MB.',
 
             'vaccine_certificate.image' => 'File Sertifikat Vaksin harus berupa gambar.',
             'vaccine_certificate.mimes' => 'Format gambar Sertifikat Vaksin harus JPG, JPEG, atau PNG.',
-            'vaccine_certificate.max' => 'Ukuran gambar Sertifikat Vaksin tidak boleh lebih dari 2MB.',
-            // 'vaccine_certificate.uploaded' => 'Gagal mengunggah Sertifikat Vaksin. Silakan coba lagi.',
+            'vaccine_certificate.max' => 'Ukuran gambar Sertifikat Vaksin tidak boleh lebih dari 3MB.',
         ]);
 
         $documents = $user->documents;

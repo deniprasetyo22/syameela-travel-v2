@@ -10,7 +10,7 @@
                 @endif
                 <div class="flex flex-col items-center justify-between py-2 md:flex-row md:space-x-4">
                     <div class="w-full md:w-1/2">
-                        <form class="flex items-center gap-4" method="GET" action="{{ route('trip-dashboard') }}">
+                        <form class="flex items-center gap-4" method="GET" action="{{ route('manasik-dashboard') }}">
                             <label for="simple-search" class="sr-only">Pencarian</label>
                             <div class="relative w-full">
                                 <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
@@ -25,7 +25,7 @@
                                     class="focus:ring-primary-500 focus:border-primary-500 dark:focus:ring-primary-500 dark:focus:border-primary-500 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2 pl-10 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
                                     placeholder="Cari nomor registrasi">
                             </div>
-                            <a href="{{ route('trip-dashboard') }}"
+                            <a href="{{ route('manasik-dashboard') }}"
                                 class="flex items-center justify-center rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
                                 Reset
                             </a>
@@ -33,10 +33,10 @@
                     </div>
                     <div
                         class="mt-2 flex w-full flex-shrink-0 flex-col items-stretch justify-end space-y-2 md:w-auto md:flex-row md:items-center md:space-x-3 md:space-y-0">
-                        <a href="{{ route('create-trip') }}"
+                        <a href="{{ route('create-manasik') }}"
                             class="bg-primary-700 hover:bg-primary-800 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 flex items-center justify-center rounded-lg px-4 py-2 text-sm font-medium text-white focus:outline-none focus:ring-4">
                             <i class="fa-solid fa-plus mr-2"></i>
-                            Tambah Perjalanan
+                            Tambah Jadwal Manasik
                         </a>
                     </div>
                 </div>
@@ -47,34 +47,38 @@
                                 <th scope="col" class="px-4 py-3">No</th>
                                 <th scope="col" class="px-4 py-3">Nama Paket</th>
                                 <th scope="col" class="px-4 py-3">Nomor Registrasi</th>
-                                <th scope="col" class="px-4 py-3">Tanggal Keberangkatan</th>
-                                <th scope="col" class="px-4 py-3">Tanggal Kepulangan</th>
+                                <th scope="col" class="px-4 py-3">Tanggal</th>
+                                <th scope="col" class="px-4 py-3">Lokasi</th>
+                                <th scope="col" class="px-4 py-3">Catatan</th>
                                 <th scope="col" class="px-4 py-3">
                                     <span class="sr-only">Actions</span>
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
-                            @if ($data['trips']->isEmpty())
+                            @if ($data['manasiks']->isEmpty())
                                 <tr>
                                     <td colspan="6" class="px-4 py-3 text-center">Tidak ada data</td>
                                 </tr>
                             @else
-                                @foreach ($data['trips'] as $trip)
+                                @foreach ($data['manasiks'] as $manasik)
                                     @php
-                                        $dropdownId = 'dropdown-' . $trip->id;
-                                        $buttonId = 'dropdown-button-' . $trip->id;
-                                        $modalId = 'delete-modal-' . $trip->id;
+                                        $dropdownId = 'dropdown-' . $manasik->id;
+                                        $buttonId = 'dropdown-button-' . $manasik->id;
+                                        $modalId = 'delete-modal-' . $manasik->id;
                                     @endphp
                                     <tr class="odd:bg-white even:bg-gray-50 dark:border-gray-700">
                                         <td class="px-4 py-3">{{ $loop->iteration }}</td>
-                                        <td class="px-4 py-3">{{ $trip->registration->package->name }}</td>
-                                        <td class="px-4 py-3">{{ $trip->registration->registration_number }}</td>
+                                        <td class="px-4 py-3">{{ $manasik->registration->package->name }}</td>
+                                        <td class="px-4 py-3">{{ $manasik->registration->registration_number }}</td>
                                         <td class="px-4 py-3">
-                                            {{ \Carbon\Carbon::parse($trip->departure_date)->translatedFormat('j F Y, H:i') }}
+                                            {{ \Carbon\Carbon::parse($manasik->date)->translatedFormat('j F Y, H:i') }}
                                         </td>
+                                        <td class="px-4 py-3">{{ $manasik->location }}</td>
                                         <td class="px-4 py-3">
-                                            {{ \Carbon\Carbon::parse($trip->return_date)->translatedFormat('j F Y, H:i') }}
+                                            <div>
+                                                {!! $manasik->note !!}
+                                            </div>
                                         </td>
                                         <td class="flex items-center justify-end px-4 py-3">
                                             <div class="relative inline-block text-left">
@@ -91,11 +95,11 @@
                                                     <ul class="py-2 text-sm text-gray-700"
                                                         aria-labelledby="{{ $buttonId }}">
                                                         <li>
-                                                            <a href="{{ route('show-trip', $trip->id) }}"
+                                                            <a href="{{ route('show-manasik', $manasik->id) }}"
                                                                 class="block px-4 py-2 hover:bg-gray-100">Lihat</a>
                                                         </li>
                                                         <li>
-                                                            <a href="{{ route('edit-trip', $trip->id) }}"
+                                                            <a href="{{ route('edit-manasik', $manasik->id) }}"
                                                                 class="block px-4 py-2 hover:bg-gray-100">Ubah</a>
                                                         </li>
                                                         <li>
@@ -138,9 +142,9 @@
                                                     <h3
                                                         class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
                                                         Yakin ingin menghapus
-                                                        <b>{{ $trip->registration->registration_number }}</b>?
+                                                        <b>{{ $manasik->registration->registration_number }}</b>?
                                                     </h3>
-                                                    <form action="{{ route('delete-trip', $trip->id) }}"
+                                                    <form action="{{ route('delete-manasik', $manasik->id) }}"
                                                         method="POST">
                                                         @csrf
                                                         @method('DELETE')
@@ -162,7 +166,7 @@
                         </tbody>
                     </table>
                     <div class="p-4">
-                        {{ $data['trips']->links() }}
+                        {{ $data['manasiks']->links() }}
                     </div>
                 </div>
             </div>

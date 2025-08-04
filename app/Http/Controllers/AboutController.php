@@ -9,6 +9,6 @@ class AboutController extends Controller
     public function index()
     {
         $title = 'About';
-        return view('pages.user.main.about', ['title' => $title]);
+        return view('pages.guest.about', ['title' => $title]);
     }
 }

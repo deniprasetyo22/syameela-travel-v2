@@ -10,7 +10,7 @@ class ContactController extends Controller
     public function index()
     {
         $title = 'Contact';
-        return view('pages.user.main.contact', ['title' => $title]);
+        return view('pages.guest.contact', ['title' => $title]);
     }
 
     public function store(Request $request)

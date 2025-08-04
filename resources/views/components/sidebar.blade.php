@@ -46,8 +46,15 @@
                             class="{{ request()->routeIs('transaction-dashboard', 'show-transaction') ? 'bg-blue-100 dark:bg-gray-700 dark:text-white' : 'text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700' }} group flex items-center rounded-lg p-2 text-base font-medium">
                             <i
                                 class="fa-solid fa-dollar-sign flex w-6 justify-center text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"></i>
-                            <span class="ml-3">Transaksi</span>
+                            <span class="ml-3">Pembayaran</span>
                         </a>
+                    </li>
+                    <a href="{{ route('manasik-dashboard') }}"
+                        class="{{ request()->routeIs('manasik-dashboard', 'create-manasik', 'show-manasik', 'edit-manasik') ? 'bg-blue-100 dark:bg-gray-700 dark:text-white' : 'text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700' }} group flex items-center rounded-lg p-2 text-base font-medium">
+                        <i
+                            class="fa-solid fa-calendar-days flex w-6 justify-center text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"></i>
+                        <span class="ml-3">Manasik</span>
+                    </a>
                     </li>
                     <li>
                         <a href="{{ route('trip-dashboard') }}"
@@ -160,7 +167,7 @@
                 </ul>
             </div>
             <!-- Bagian bawah (Logout) -->
-            <div class="border-t border-gray-200 px-3 py-2 md:hidden dark:border-gray-700">
+            <div class="border-t border-gray-200 px-3 py-2 lg:hidden dark:border-gray-700">
                 <a href="{{ route('logout') }}"
                     class="flex items-center justify-center rounded-lg bg-red-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
                     <span class="ml-2">

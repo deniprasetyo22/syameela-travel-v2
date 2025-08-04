@@ -24,7 +24,7 @@ class HajjController extends Controller
             'packages' => $packages,
         ];
 
-        return view('pages.user.hajj.index', ['data' => $data]);
+        return view('pages.guest.hajj', ['data' => $data]);
     }
 
     public function dashboard(Request $request)
@@ -207,19 +207,7 @@ class HajjController extends Controller
             'package' => Package::findOrFail($id),
         ];
 
-        return view('pages.user.hajj.show', ['data' => $data]);
-    }
-
-    public function checkout($id)
-    {
-        $package = Package::findOrFail($id);
-        $user = Auth::user();
-        $data = [
-            'title' => 'Checkout Hajj Package',
-            'package' => $package,
-            'user' => $user,
-        ];
-        return view('pages.user.hajj.checkout', ['data' => $data]);
+        return view('pages.guest.show-hajj', ['data' => $data]);
     }
 
     public function submit(Request $request, $id)
@@ -274,11 +262,29 @@ class HajjController extends Controller
             }
 
             DB::commit();
-            return redirect()->route('my-transactions')->with('success', 'Registrasi berhasil.');
+            return redirect()->route('payments')->with('success', 'Registrasi berhasil.');
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->withErrors(['error' => 'Gagal memproses pendaftaran: ' . $e->getMessage()]);
         }
+    }
+
+    public function list(){
+        $data = [
+            'title' => 'Hajj List',
+            'packages' => Package::where('type', 'Haji')->latest()->paginate(5),
+        ];
+        return view('pages.user.hajj.index', ['data' => $data]);
+    }
+
+    public function showList($id){
+        $data = [
+            'title' => 'Hajj List',
+            'user' => Auth::user(),
+            'allPackages' => Package::where('type', 'Haji')->latest()->paginate(5),
+            'package' => Package::findOrFail($id),
+        ];
+        return view('pages.user.hajj.show', ['data' => $data]);
     }
 
 

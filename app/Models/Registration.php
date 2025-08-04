@@ -42,6 +42,11 @@ class Registration extends Model
         return $this->hasOne(TripDetail::class);
     }
 
+    public function manasik(): HasMany
+    {
+        return $this->hasMany(Manasik::class);
+    }
+
     // Scope untuk search
     public function scopeSearch($query, $keyword)
     {

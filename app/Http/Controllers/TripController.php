@@ -223,13 +223,13 @@ class TripController extends Controller
 
     public function myTrips(Request $request)
     {
-        $type = $request->get('type');
+        $search = $request->get('search');
 
         $trips = TripDetail::with('registration')
             ->whereHas('registration', function ($query) {
                 $query->where('user_id', auth()->user()->id);
             })
-            ->filter($type)
+            ->search($search)
             ->latest()
             ->paginate(10);
 

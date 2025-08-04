@@ -9,12 +9,13 @@ use App\Http\Controllers\TripController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\UmrahController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\ManasikController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\ReportController;
 use App\Http\Controllers\TestimonialController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\TestimonialsController;
@@ -108,24 +109,25 @@ Route::get('/profile/security', [ProfileController::class, 'security'])->middlew
 Route::get('/profile/security/edit', [ProfileController::class, 'editSecurity'])->middleware('auth', 'verified')->name('edit-security');
 Route::put('/profile/security', [ProfileController::class, 'updateSecurity'])->middleware('auth', 'verified')->name('update-security');
 
+Route::get('/hajj/list', [HajjController::class, 'list'])->middleware('auth', 'verified')->name('hajj-list');
+Route::get('/hajj/list/{id}', [HajjController::class, 'showList'])->middleware('auth', 'verified')->name('show-hajj-list');
+Route::post('/hajj/list/{id}/submit', [HajjController::class, 'submit'])->middleware('auth', 'verified')->name('submit-hajj-package');
 Route::get('/hajj/{id}', [HajjController::class, 'showPackage'])->name('show-hajj-package');
-Route::get('/hajj/{id}/checkout', [HajjController::class, 'checkout'])->middleware('auth', 'verified')->name('checkout-hajj-package');
-Route::post('/hajj/{id}/submit', [HajjController::class, 'submit'])->middleware('auth', 'verified')->name('submit-hajj-package');
 
+Route::get('/umrah/list', [UmrahController::class, 'list'])->middleware('auth', 'verified')->name('umrah-list');
+Route::get('/umrah/list/{id}', [UmrahController::class, 'showList'])->middleware('auth', 'verified')->name('show-umrah-list');
+Route::post('/umrah/list/{id}/submit', [UmrahController::class, 'submit'])->middleware('auth', 'verified')->name('submit-umrah-package');
 Route::get('/umrah/{id}', [UmrahController::class, 'showPackage'])->name('show-umrah-package');
-Route::get('/umrah/{id}/checkout', [UmrahController::class, 'checkout'])->middleware('auth', 'verified')->name('checkout-umrah-package');
-Route::post('/umrah/{id}/submit', [UmrahController::class, 'submit'])->middleware('auth', 'verified')->name('submit-umrah-package');
 
+Route::get('/payments', [PaymentController::class, 'index'])->middleware('auth', 'verified')->name('my-payments');
+Route::get('/payments/{id}', [PaymentController::class, 'showMyPayment'])->middleware('auth', 'verified')->name('show-my-payment');
+Route::put('/payments/{id}', [PaymentController::class, 'updateMyPayment'])->middleware('auth', 'verified')->name('update-my-payment');
 
 Route::get('/admin/transaction', [TransactionController::class, 'dashboard'])->middleware('auth', 'verified', 'is_admin')->name('transaction-dashboard');
 Route::get('/admin/transaction/{id}', [TransactionController::class, 'show'])->middleware('auth', 'verified', 'is_admin')->name('show-transaction');
 Route::get('/admin/transaction/{id}/edit', [TransactionController::class, 'edit'])->middleware('auth', 'verified', 'is_admin')->name('edit-transaction');
 Route::put('/admin/transaction/{id}', [TransactionController::class, 'update'])->middleware('auth', 'verified', 'is_admin')->name('update-transaction');
 Route::delete('/admin/transaction/{id}', [TransactionController::class, 'destroy'])->middleware('auth', 'verified', 'is_admin')->name('delete-transaction');
-
-Route::get('/my-transactions', [TransactionController::class, 'myTransactions'])->middleware('auth', 'verified')->name('my-transactions');
-Route::get('/my-transactions/{id}', [TransactionController::class, 'showTransaction'])->middleware('auth', 'verified')->name('show-my-transaction');
-Route::put('/my-transactions/{id}', [TransactionController::class, 'updateTransaction'])->middleware('auth', 'verified')->name('update-my-transaction');
 
 Route::get('/admin/trip', [TripController::class, 'index'])->middleware('auth', 'verified', 'is_admin')->name('trip-dashboard');
 Route::get('/admin/trip/create', [TripController::class, 'create'])->middleware('auth', 'verified', 'is_admin')->name('create-trip');
@@ -163,3 +165,14 @@ Route::get('/admin/report/umrah/documents', [ReportController::class, 'umrahDocu
 Route::get('/admin/report/umrah/documents/export/{id}', [ReportController::class, 'exportUmrahDocuments'])->middleware('auth', 'verified', 'is_admin')->name('export-umrah-documents');
 Route::get('/admin/report/umrah/payments', [ReportController::class, 'umrahPayments'])->middleware('auth', 'verified', 'is_admin')->name('report-umrah-payments');
 Route::get('/admin/report/umrah/payments/export/{id}', [ReportController::class, 'exportUmrahPayments'])->middleware('auth', 'verified', 'is_admin')->name('export-umrah-payments');
+
+Route::get('/admin/manasik', [ManasikController::class, 'dashboard'])->middleware('auth', 'verified', 'is_admin')->name('manasik-dashboard');
+Route::get('/admin/manasik/create', [ManasikController::class, 'create'])->middleware('auth', 'verified', 'is_admin')->name('create-manasik');
+Route::post('/admin/manasik', [ManasikController::class, 'store'])->middleware('auth', 'verified', 'is_admin')->name('store-manasik');
+Route::get('/admin/manasik/{id}/edit', [ManasikController::class, 'edit'])->middleware('auth', 'verified', 'is_admin')->name('edit-manasik');
+Route::get('/admin/manasik/{id}', [ManasikController::class, 'show'])->middleware('auth', 'verified', 'is_admin')->name('show-manasik');
+Route::put('/admin/manasik/{id}', [ManasikController::class, 'update'])->middleware('auth', 'verified', 'is_admin')->name('update-manasik');
+Route::delete('/admin/manasik/{id}', [ManasikController::class, 'destroy'])->middleware('auth', 'verified', 'is_admin')->name('delete-manasik');
+
+Route::get('/my-manasik', [ManasikController::class, 'myManasik'])->middleware('auth', 'verified')->name('my-manasik');
+Route::get('/my-manasik/{id}', [ManasikController::class, 'showMyManasik'])->middleware('auth', 'verified')->name('show-my-manasik');

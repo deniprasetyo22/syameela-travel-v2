@@ -14,7 +14,7 @@ class TestimonialController extends Controller
             'title' => 'Testimonials',
             'testimonials' => $testimonials
         ];
-        return view('pages.user.main.testimonials', ['data' => $data]);
+        return view('pages.guest.testimonials', ['data' => $data]);
     }
 
     public function dashboard(Request $request)

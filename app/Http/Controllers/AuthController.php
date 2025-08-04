@@ -78,7 +78,7 @@ class AuthController extends Controller
             'username' => 'required|string|max:255|unique:users',
             'email'    => 'required|email|max:255|unique:users',
             'gender'   => 'required',
-            'phone'    => 'required',
+            'phone'    => 'required|max:15',
             'address'  => 'required',
             'password' => 'required|string|min:8|confirmed',
         ], [
@@ -90,6 +90,8 @@ class AuthController extends Controller
             'password.required' => 'Password wajib diisi.',
             'password.min' => 'Password minimal 8 karakter.',
             'password.confirmed' => 'Konfirmasi password tidak cocok.',
+            'phone.required' => 'Nomor telepon wajib diisi.',
+            'phone.max' => 'Nomor telepon maksimal 15 karakter.',
         ]);
 
         // Gunakan transaction untuk memastikan integritas data

@@ -1,7 +1,7 @@
 <x-layout :title="$title">
     <div class="flex min-h-screen items-center justify-center bg-gray-100 px-4">
         <div class="mx-auto flex max-w-md flex-col items-center rounded-lg bg-white p-6 text-center shadow">
-            <h1 class="mb-4 text-xl font-semibold">Verify Your Email Address</h1>
+            <h1 class="mb-4 text-xl font-semibold">Verifikasi Alamat Email Anda</h1>
 
             @if (session('message'))
                 <div class="mb-4 text-green-500">
@@ -10,8 +10,8 @@
             @endif
 
             <p class="mb-4">
-                Before proceeding, please check your email for a verification link.
-                If you did not receive the email,
+                Sebelum melanjutkan, silakan periksa email Anda untuk tautan verifikasi.
+                Jika Anda belum menerima email tersebut,
             </p>
 
             <form method="POST" action="{{ route('verification.send') }}">

@@ -10,6 +10,17 @@
         <link
             href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
             rel="stylesheet">
+
+        <!-- Cinzel -->
+        <link href="https://fonts.googleapis.com/css2?family=Cinzel&display=swap" rel="stylesheet">
+
+        <!-- atau Playfair Display -->
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+
+
+        <!-- Tom Select CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/css/tom-select.css" rel="stylesheet">
+
         @vite('resources/css/app.css')
     </head>
 
@@ -62,6 +73,9 @@
                 document.getElementById(`close-${id}`).classList.add('hidden');
             }
         </script>
+
+        <!-- Tom Select JS -->
+        <script src="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/js/tom-select.complete.min.js"></script>
     </body>
 
 </html>

@@ -3,8 +3,7 @@
         <div class="mx-auto flex flex-wrap items-center justify-between px-4 py-3">
 
             {{-- Logo --}}
-            <a href="{{ auth()->check() && auth()->user()->role?->name == 'Admin' ? '#' : route('home') }}"
-                class="flex items-center space-x-3">
+            <a href="{{ auth()->check() ? '#' : route('home') }}" class="flex items-center space-x-3">
                 <img src="{{ asset('img/logo.png') }}" class="h-10" alt="Syameela Logo">
                 <span class="self-center whitespace-nowrap text-2xl font-semibold dark:text-white">Syameela Travel</span>
             </a>
@@ -16,17 +15,19 @@
                 <div class="hidden lg:block">
                     @if (Auth::check() && Auth::user()->hasVerifiedEmail())
                         <div>
-                            <button type="button"
-                                class="flex cursor-pointer items-center gap-2 rounded-full bg-transparent px-3 py-1 text-sm text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-white dark:hover:bg-gray-700"
-                                id="user-menu-button" data-dropdown-toggle="user-dropdown"
-                                data-dropdown-placement="bottom">
-                                <span class="text-sm font-medium">
-                                    <i class="fa-solid fa-chevron-down text-xs"></i>
-                                    {{ Auth::user()->full_name }}
-                                </span>
+                            <div
+                                class="flex items-center gap-2 rounded-full bg-transparent px-3 py-1 text-sm text-gray-900 dark:text-white">
                                 <img src="{{ asset('img/default-profile-picture.png') }}" alt="User photo"
                                     class="h-8 w-8 rounded-full object-cover">
-                            </button>
+                                <span class="text-sm font-medium">
+                                    {{ Auth::user()->full_name }}
+                                </span>
+                                |
+                                <a href="{{ route('logout') }}"
+                                    class="text-center text-sm font-semibold text-red-600 hover:text-red-700 hover:underline">
+                                    Keluar
+                                </a>
+                            </div>
 
                             <!-- Dropdown Content -->
                             <div id="user-dropdown"
@@ -40,10 +41,6 @@
                                         <a href="{{ route('profile') }}"
                                             class="{{ request()->routeIs('profile') ? 'text-white bg-blue-600 lg:text-blue-700 lg:bg-transparent' : 'text-gray-900 hover:text-blue-700 dark:text-white dark:hover:text-blue-400' }} mt-2 block rounded-md px-4 py-2 text-sm font-medium text-gray-900 hover:bg-blue-200 dark:text-white dark:hover:bg-gray-600">
                                             Profil
-                                        </a>
-                                        <a href="{{ route('my-transactions') }}"
-                                            class="{{ request()->routeIs('my-transactions', 'show-my-transaction') ? 'text-white bg-blue-600 lg:text-blue-700 lg:bg-transparent' : 'text-gray-900 hover:text-blue-700 dark:text-white dark:hover:text-blue-400' }} block rounded-md px-4 py-2 text-sm font-medium text-gray-900 hover:bg-blue-200 dark:text-white dark:hover:bg-gray-600">
-                                            Transaksi
                                         </a>
                                         <a href="{{ route('my-trips') }}"
                                             class="{{ request()->routeIs('my-trips', 'show-my-trip') ? 'text-white bg-blue-600 lg:text-blue-700 lg:bg-transparent' : 'text-gray-900 hover:text-blue-700 dark:text-white dark:hover:text-blue-400' }} block rounded-md px-4 py-2 text-sm font-medium text-gray-900 hover:bg-blue-200 dark:text-white dark:hover:bg-gray-600">
@@ -101,99 +98,81 @@
             </div>
 
             <!-- Main Menu -->
-            @if (!Auth::check() || !Auth::user()->hasVerifiedEmail() || Auth::user()->role->name != 'Admin')
-                <div class="hidden w-full items-center justify-between lg:order-1 lg:flex lg:w-auto" id="navbar-sticky">
-                    <ul
-                        class="mt-4 flex flex-col rounded-lg border border-gray-100 bg-gray-50 p-4 font-medium lg:mt-0 lg:flex-row lg:space-x-8 lg:border-0 lg:bg-white lg:p-0 rtl:space-x-reverse dark:border-gray-700 dark:bg-gray-800 lg:dark:bg-gray-900">
+            <div class="{{ Auth::check() && Auth::user()->hasVerifiedEmail() ? '' : 'lg:flex lg:w-auto' }} hidden w-full items-center justify-between lg:order-1"
+                id="navbar-sticky">
+                <ul
+                    class="mt-4 flex flex-col rounded-lg border border-gray-100 bg-gray-50 p-4 font-medium lg:mt-0 lg:flex-row lg:space-x-8 lg:border-0 lg:bg-white lg:p-0 rtl:space-x-reverse dark:border-gray-700 dark:bg-gray-800 lg:dark:bg-gray-900">
+                    <!-- Link Utama -->
+                    <li>
+                        <a href="{{ route('home') }}"
+                            class="{{ request()->routeIs('home') ? 'text-white bg-blue-600 lg:text-blue-700 lg:bg-transparent' : 'text-gray-900 hover:text-blue-700 dark:text-white dark:hover:text-blue-400' }} block rounded-sm px-3 py-2 lg:p-0">
+                            Beranda
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('hajj') }}"
+                            class="{{ request()->routeIs('hajj') ? 'text-white bg-blue-600 lg:text-blue-700 lg:bg-transparent' : 'text-gray-900 hover:text-blue-700 dark:text-white dark:hover:text-blue-400' }} block rounded-sm px-3 py-2 lg:p-0">
+                            Haji
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('umrah') }}"
+                            class="{{ request()->routeIs('umrah') ? 'text-white bg-blue-600 lg:text-blue-700 lg:bg-transparent' : 'text-gray-900 hover:text-blue-700 dark:text-white dark:hover:text-blue-400' }} block rounded-sm px-3 py-2 lg:p-0">
+                            Umroh
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('about') }}"
+                            class="{{ request()->routeIs('about') ? 'text-white bg-blue-600 lg:text-blue-700 lg:bg-transparent' : 'text-gray-900 hover:text-blue-700 dark:text-white dark:hover:text-blue-400' }} block rounded-sm px-3 py-2 lg:p-0">
+                            Tentang
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('gallery') }}"
+                            class="{{ request()->routeIs('gallery') ? 'text-white bg-blue-600 lg:text-blue-700 lg:bg-transparent' : 'text-gray-900 hover:text-blue-700 dark:text-white dark:hover:text-blue-400' }} block rounded-sm px-3 py-2 lg:p-0">
+                            Galeri
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('testimonials') }}"
+                            class="{{ request()->routeIs('testimonials') ? 'text-white bg-blue-600 lg:text-blue-700 lg:bg-transparent' : 'text-gray-900 hover:text-blue-700 dark:text-white dark:hover:text-blue-400' }} block rounded-sm px-3 py-2 lg:p-0">
+                            Testimoni
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('contact') }}"
+                            class="{{ request()->routeIs('contact') ? 'text-white bg-blue-600 lg:text-blue-700 lg:bg-transparent' : 'text-gray-900 hover:text-blue-700 dark:text-white dark:hover:text-blue-400' }} block rounded-sm px-3 py-2 lg:p-0">
+                            Kontak
+                        </a>
+                    </li>
 
-                        <!-- Link Utama -->
-                        <li>
-                            <a href="{{ route('home') }}"
-                                class="{{ request()->routeIs('home') ? 'text-white bg-blue-600 lg:text-blue-700 lg:bg-transparent' : 'text-gray-900 hover:text-blue-700 dark:text-white dark:hover:text-blue-400' }} block rounded-sm px-3 py-2 lg:p-0">
-                                Beranda
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('hajj') }}"
-                                class="{{ request()->routeIs('hajj') ? 'text-white bg-blue-600 lg:text-blue-700 lg:bg-transparent' : 'text-gray-900 hover:text-blue-700 dark:text-white dark:hover:text-blue-400' }} block rounded-sm px-3 py-2 lg:p-0">
-                                Haji
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('umrah') }}"
-                                class="{{ request()->routeIs('umrah') ? 'text-white bg-blue-600 lg:text-blue-700 lg:bg-transparent' : 'text-gray-900 hover:text-blue-700 dark:text-white dark:hover:text-blue-400' }} block rounded-sm px-3 py-2 lg:p-0">
-                                Umroh
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('about') }}"
-                                class="{{ request()->routeIs('about') ? 'text-white bg-blue-600 lg:text-blue-700 lg:bg-transparent' : 'text-gray-900 hover:text-blue-700 dark:text-white dark:hover:text-blue-400' }} block rounded-sm px-3 py-2 lg:p-0">
-                                Tentang
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('gallery') }}"
-                                class="{{ request()->routeIs('gallery') ? 'text-white bg-blue-600 lg:text-blue-700 lg:bg-transparent' : 'text-gray-900 hover:text-blue-700 dark:text-white dark:hover:text-blue-400' }} block rounded-sm px-3 py-2 lg:p-0">
-                                Galeri
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('testimonials') }}"
-                                class="{{ request()->routeIs('testimonials') ? 'text-white bg-blue-600 lg:text-blue-700 lg:bg-transparent' : 'text-gray-900 hover:text-blue-700 dark:text-white dark:hover:text-blue-400' }} block rounded-sm px-3 py-2 lg:p-0">
-                                Testimoni
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('contact') }}"
-                                class="{{ request()->routeIs('contact') ? 'text-white bg-blue-600 lg:text-blue-700 lg:bg-transparent' : 'text-gray-900 hover:text-blue-700 dark:text-white dark:hover:text-blue-400' }} block rounded-sm px-3 py-2 lg:p-0">
-                                Kontak
-                            </a>
-                        </li>
-
-                        @if (Auth::check())
-                            <li class="lg:hidden">
-                                <a href="{{ route('profile') }}"
-                                    class="{{ request()->routeIs('profile') ? 'text-white bg-blue-600 lg:text-blue-700 lg:bg-transparent' : 'text-gray-900 hover:text-blue-700 dark:text-white dark:hover:text-blue-400' }} block rounded-sm px-3 py-2 lg:p-0">
-                                    Profil
-                                </a>
-                            </li>
-                            <li class="lg:hidden">
-                                <a href="{{ route('my-transactions') }}"
-                                    class="{{ request()->routeIs('my-transactions', 'show-my-transaction') ? 'text-white bg-blue-600 lg:text-blue-700 lg:bg-transparent' : 'text-gray-900 hover:text-blue-700 dark:text-white dark:hover:text-blue-400' }} block rounded-sm px-3 py-2 lg:p-0">
-                                    Transaksi
-                                </a>
-                            </li>
-                            <li class="lg:hidden">
-                                <a href="{{ route('my-trips') }}"
-                                    class="{{ request()->routeIs('my-trips', 'show-my-trip') ? 'text-white bg-blue-600 lg:text-blue-700 lg:bg-transparent' : 'text-gray-900 hover:text-blue-700 dark:text-white dark:hover:text-blue-400' }} block rounded-sm px-3 py-2 lg:p-0">
-                                    Informasi Keberangkatan
-                                </a>
-                            </li>
+                    {{-- Tombol Autentikasi --}}
+                    @auth
+                        @if (!auth()->user()->hasVerifiedEmail() || auth()->user()->role->name != 'Admin')
                             <li class="mt-4 lg:hidden">
                                 <a href="{{ route('logout') }}"
                                     class="block rounded-lg bg-red-600 px-3 py-2 text-center text-white hover:bg-red-700">
                                     Keluar
                                 </a>
                             </li>
-                        @else
-                            <!-- Tombol Autentikasi untuk Mobile -->
-                            <li class="mb-2 lg:hidden">
-                                <a href="{{ route('login') }}"
-                                    class="block rounded-lg border border-gray-300 bg-white px-3 py-2 text-center text-gray-900 hover:bg-gray-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 dark:hover:text-blue-400">
-                                    Masuk
-                                </a>
-                            </li>
-                            <li class="lg:hidden">
-                                <a href="{{ route('register') }}"
-                                    class="block rounded-lg bg-blue-700 px-3 py-2 text-center text-white hover:bg-blue-800 dark:bg-blue-600 dark:text-white dark:hover:bg-blue-700">
-                                    Daftar
-                                </a>
-                            </li>
                         @endif
-
-                    </ul>
-                </div>
-            @endif
+                    @else
+                        <!-- Tombol Autentikasi untuk Mobile -->
+                        <li class="mb-2 lg:hidden">
+                            <a href="{{ route('login') }}"
+                                class="block rounded-lg border border-gray-300 bg-white px-3 py-2 text-center text-gray-900 hover:bg-gray-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 dark:hover:text-blue-400">
+                                Masuk
+                            </a>
+                        </li>
+                        <li class="lg:hidden">
+                            <a href="{{ route('register') }}"
+                                class="block rounded-lg bg-blue-700 px-3 py-2 text-center text-white hover:bg-blue-800 dark:bg-blue-600 dark:text-white dark:hover:bg-blue-700">
+                                Daftar
+                            </a>
+                        </li>
+                    @endauth
+                </ul>
+            </div>
 
         </div>
     </nav>

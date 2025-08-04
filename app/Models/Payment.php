@@ -20,16 +20,15 @@ class Payment extends Model
         'verification_status',
     ];
 
-    // protected function casts(): array
-    // {
-    //     return [
-    //         'amount' => 'decimal:2',
-    //         'paid_at' => 'datetime',
-    //     ];
-    // }
-
     public function registration(): BelongsTo
     {
         return $this->belongsTo(Registration::class);
+    }
+
+    public function scopeSearch($query, $keyword)
+    {
+        return $query->whereHas('registration', function ($q) use ($keyword) {
+            $q->where('registration_number', 'like', '%' . $keyword . '%');
+        });
     }
 }

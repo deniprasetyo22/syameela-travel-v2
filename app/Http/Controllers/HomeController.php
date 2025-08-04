@@ -23,6 +23,6 @@ class HomeController extends Controller
             'testimonials' => Testimonial::latest()->take(2)->get()
         ];
 
-        return view('pages.user.main.home', ['data' => $data]);
+        return view('pages.guest.home', ['data' => $data]);
     }
 }
