@@ -22,9 +22,7 @@
         <link href="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/css/tom-select.css" rel="stylesheet">
 
         {{-- Fontawesome --}}
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-            integrity="sha512-udqS3oN3v3U2VnmqvRbL2xH7DhBzUZFlmT2INgckqDdfTu/RSb5d5J0KaG8p7Ko5CkiXAZBQ3ZTf/jCe6RPhjw=="
-            crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
 
 
         @vite('resources/css/app.css')
