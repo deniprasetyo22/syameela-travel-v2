@@ -74,7 +74,7 @@
                         <label class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Jenis
                             Kelamin</label>
                         <p
-                            class="rounded-lg border border-gray-200 bg-gray-100 p-2.5 text-sm text-gray-800 dark:bg-gray-700 dark:text-white">
+                            class="{{ $data['user']->profile->gender ? 'text-gray-800 dark:text-white' : 'text-gray-500' }} rounded-lg border border-gray-200 bg-gray-100 p-2.5 text-sm dark:bg-gray-700">
                             {{ $data['user']->profile->gender ?? 'Anda belum mengisi jenis kelamin' }}
                         </p>
                     </div>
@@ -96,14 +96,14 @@
                         <label class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Nomor
                             Telepon</label>
                         <p
-                            class="rounded-lg border border-gray-200 bg-gray-100 p-2.5 text-sm text-gray-800 dark:bg-gray-700 dark:text-white">
+                            class="{{ $data['user']->profile->phone ? 'text-gray-800 dark:text-white' : 'text-gray-500' }} rounded-lg border border-gray-200 bg-gray-100 p-2.5 text-sm dark:bg-gray-700">
                             {{ $data['user']->profile->phone ?? 'Anda belum mengisi nomor telepon' }}
                         </p>
                     </div>
                     <div class="w-full">
                         <label class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Alamat</label>
                         <p
-                            class="rounded-lg border border-gray-200 bg-gray-100 p-2.5 text-sm text-gray-800 dark:bg-gray-700 dark:text-white">
+                            class="{{ $data['user']->profile->address ? 'text-gray-800 dark:text-white' : 'text-gray-500' }} rounded-lg border border-gray-200 bg-gray-100 p-2.5 text-sm dark:bg-gray-700">
                             {{ $data['user']->profile->address ?? 'Anda belum mengisi alamat' }}
                         </p>
                     </div>
