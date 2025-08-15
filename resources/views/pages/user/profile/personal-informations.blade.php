@@ -75,7 +75,7 @@
                             Kelamin</label>
                         <p
                             class="rounded-lg border border-gray-200 bg-gray-100 p-2.5 text-sm text-gray-800 dark:bg-gray-700 dark:text-white">
-                            {{ $data['user']->profile->gender }}
+                            {{ $data['user']->profile->gender ?? 'Anda belum mengisi jenis kelamin' }}
                         </p>
                     </div>
                     <div class="w-full">
@@ -97,14 +97,14 @@
                             Telepon</label>
                         <p
                             class="rounded-lg border border-gray-200 bg-gray-100 p-2.5 text-sm text-gray-800 dark:bg-gray-700 dark:text-white">
-                            {{ $data['user']->profile->phone }}
+                            {{ $data['user']->profile->phone ?? 'Anda belum mengisi nomor telepon' }}
                         </p>
                     </div>
                     <div class="w-full">
                         <label class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Alamat</label>
                         <p
                             class="rounded-lg border border-gray-200 bg-gray-100 p-2.5 text-sm text-gray-800 dark:bg-gray-700 dark:text-white">
-                            {{ $data['user']->profile->address }}
+                            {{ $data['user']->profile->address ?? 'Anda belum mengisi alamat' }}
                         </p>
                     </div>
                     <div class="w-full">
