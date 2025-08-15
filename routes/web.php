@@ -62,7 +62,6 @@ Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery');
 
 
 Route::get('/admin-dashboard', [DashboardController::class, 'admin'])->middleware('auth', 'verified', 'is_admin')->name('admin-dashboard');
-// Route::get('/user-dashboard', [DashboardController::class, 'user'])->middleware('auth', 'verified')->name('user-dashboard');
 
 Route::get('/admin/users', [UserController::class, 'index'])->middleware('auth', 'verified', 'is_admin')->name('users-dashboard');
 Route::get('/admin/users/create', [UserController::class, 'create'])->middleware('auth', 'verified', 'is_admin')->name('create-user');
