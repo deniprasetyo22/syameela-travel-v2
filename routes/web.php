@@ -137,6 +137,7 @@ Route::delete('/admin/trip/{id}', [TripController::class, 'destroy'])->middlewar
 
 Route::get('/my-trips', [TripController::class, 'myTrips'])->middleware('auth', 'verified')->name('my-trips');
 Route::get('/my-trips/{id}', [TripController::class, 'showMyTrip'])->middleware('auth', 'verified')->name('show-my-trip');
+Route::get('/my-trips/{id}/export', [TripController::class, 'exportMyTrip'])->middleware('auth', 'verified')->name('export-my-trip');
 
 Route::post('/contact', [ContactController::class, 'store'])->name('store-contact');
 Route::get('/admin/contact', [ContactController::class, 'dashboard'])->middleware('auth', 'verified', 'is_admin')->name('contact-dashboard');

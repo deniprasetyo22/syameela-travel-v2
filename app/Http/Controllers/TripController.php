@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\TripDetail;
 use Illuminate\Support\Str;
 use App\Models\Registration;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Storage;
 
 class TripController extends Controller
@@ -251,5 +253,27 @@ class TripController extends Controller
         ];
 
         return view('pages.user.trip.show', ['data' => $data]);
+    }
+
+    public function exportMyTrip(string $id)
+    {
+        $trip = TripDetail::with([
+            'registration',
+            'registration.package',
+            'registration.user',
+            'registration.user.profile',
+            'registration.payments',
+        ])->findOrFail($id);
+
+        $data = [
+            'title' => 'Detail Trip',
+            'trip'  => $trip,
+        ];
+
+        // kirim sebagai 'data' supaya konsisten dengan view lain
+        $pdf = Pdf::loadView('pages.user.trip.export', ['data' => $data])
+                ->setPaper('a4', 'portrait');
+
+        return $pdf->stream('export-trip-' . Carbon::now()->timestamp . '.pdf');
     }
 }
