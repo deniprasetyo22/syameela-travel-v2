@@ -55,8 +55,7 @@
             }
 
             .section {
-                margin-bottom: 40px;
-                page-break-inside: avoid;
+                margin-bottom: 24px;
             }
 
             .section-title {
