@@ -270,10 +270,9 @@ class TripController extends Controller
             'trip'  => $trip,
         ];
 
-        // kirim sebagai 'data' supaya konsisten dengan view lain
         $pdf = Pdf::loadView('pages.user.trip.export', ['data' => $data])
                 ->setPaper('a4', 'portrait');
 
-        return $pdf->stream('export-trip-' . Carbon::now()->timestamp . '.pdf');
+        return $pdf->download('export-trip-' . Carbon::now()->timestamp . '.pdf');
     }
 }
