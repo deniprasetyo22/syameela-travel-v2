@@ -88,7 +88,7 @@
                             <div class="mb-3 font-normal text-gray-700 dark:text-gray-400">
                                 {!! Str::limit($hajj->description, 100, '...') !!}
                             </div>
-                            <a href="#"
+                            <a href="{{ route('show-hajj-package', $hajj->id) }}"
                                 class="inline-flex items-center rounded-lg bg-blue-700 px-3 py-2 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                 Lihat Detail <i class="fa-solid fa-arrow-right ml-2"></i>
                             </a>
@@ -139,7 +139,7 @@
                             <div class="mb-3 font-normal text-gray-700 dark:text-gray-400">
                                 {!! Str::limit($umrah->description, 100, '...') !!}
                             </div>
-                            <a href="#"
+                            <a href="{{ route('show-umrah-package', $umrah->id) }}"
                                 class="inline-flex items-center rounded-lg bg-blue-700 px-3 py-2 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                 Lihat Detail <i class="fa-solid fa-arrow-right ml-2"></i>
                             </a>
