@@ -29,7 +29,8 @@
                                 @foreach ($data['transactions'] as $transaction)
                                     <option value="{{ $transaction->id }}"
                                         data-departure="{{ $transaction->package->departure_date }}"
-                                        data-return="{{ $transaction->package->return_date }}">
+                                        data-return="{{ $transaction->package->return_date }}"
+                                        data-visa="{{ $transaction->user->documents->visa ?? '' }}">
                                         {{ $transaction->registration_number }}
                                     </option>
                                 @endforeach
@@ -127,12 +128,23 @@
                             @enderror
                         </div>
                         <div class="sm:col-span-2">
-                            <label for="visa" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
+                            <label class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
                                 Visa <span class="text-xs text-gray-400">*PDF (Max. 5MB)</span>
                             </label>
-                            <input type="file" name="visa" id="visa"
+
+                            {{-- Preview visa jika sudah ada --}}
+                            <div id="visa-preview" class="mb-2 hidden rounded-lg border border-gray-300 p-2">
+                                <a id="visa-link" href="#" target="_blank"
+                                    class="inline-flex items-center text-sm text-blue-600 hover:underline dark:text-blue-400">
+                                    Lihat Visa
+                                </a>
+                            </div>
+
+                            {{-- Input file visa (muncul hanya kalau belum ada visa) --}}
+                            <input type="file" name="visa" id="visa-file"
                                 class="focus:ring-primary-600 focus:border-primary-600 dark:focus:ring-primary-500 dark:focus:border-primary-500 @error('visa') border-red-500 @else border-gray-300 @enderror block w-full cursor-pointer rounded-lg border bg-white text-sm text-gray-900 focus:outline-none dark:border-gray-600 dark:bg-gray-700 dark:text-gray-400 dark:placeholder-gray-400"
-                                required="" accept="application/pdf">
+                                accept="application/pdf">
+
                             @error('visa')
                                 <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
                             @enderror
@@ -195,30 +207,64 @@
             const departureInput = document.getElementById('departure_date');
             const returnInput = document.getElementById('return_date');
 
+            const visaPreview = document.getElementById('visa-preview');
+            const visaLink = document.getElementById('visa-link');
+            const visaFileInput = document.getElementById('visa-file');
+
+            // base URL untuk storage
+            const STORAGE_BASE = "{{ asset('storage') }}";
+
             function toLocalDatetimeString(dateString) {
-                const date = new Date(dateString);
-                const year = date.getFullYear();
-                const month = String(date.getMonth() + 1).padStart(2, '0');
-                const day = String(date.getDate()).padStart(2, '0');
-                const hours = String(date.getHours()).padStart(2, '0');
-                const minutes = String(date.getMinutes()).padStart(2, '0');
-                return `${year}-${month}-${day}T${hours}:${minutes}`;
+                if (!dateString) return '';
+                const d = new Date(dateString);
+                const y = d.getFullYear();
+                const m = String(d.getMonth() + 1).padStart(2, '0');
+                const day = String(d.getDate()).padStart(2, '0');
+                const h = String(d.getHours()).padStart(2, '0');
+                const min = String(d.getMinutes()).padStart(2, '0');
+                return `${y}-${m}-${day}T${h}:${min}`;
+            }
+
+            function showVisaPreview(visaPath) {
+                // Bersihkan sisa input file
+                visaFileInput.value = '';
+                visaFileInput.required = false;
+                visaFileInput.classList.add('hidden');
+
+                // Tampilkan preview dan buat link
+                const cleanedPath = visaPath.replace(/^\/?storage\//, '');
+                visaLink.href = `${STORAGE_BASE}/${cleanedPath}`;
+                visaPreview.classList.remove('hidden');
+            }
+
+            function showVisaUploaderRequired() {
+                visaPreview.classList.add('hidden');
+                visaLink.href = '#';
+
+                visaFileInput.classList.remove('hidden');
+                visaFileInput.required = true;
+                visaFileInput.value = '';
             }
 
             registrationSelect.addEventListener('change', function() {
-                const selectedOption = registrationSelect.options[registrationSelect.selectedIndex];
-                const departureDate = selectedOption.getAttribute('data-departure');
-                const returnDate = selectedOption.getAttribute('data-return');
+                const opt = registrationSelect.options[registrationSelect.selectedIndex];
+                const dep = opt.getAttribute('data-departure');
+                const ret = opt.getAttribute('data-return');
+                const visa = opt.getAttribute('data-visa');
 
-                if (departureDate) {
-                    departureInput.value = toLocalDatetimeString(departureDate);
-                }
+                if (dep) departureInput.value = toLocalDatetimeString(dep);
+                if (ret) returnInput.value = toLocalDatetimeString(ret);
 
-                if (returnDate) {
-                    returnInput.value = toLocalDatetimeString(returnDate);
+                // Jika ada visa, tampilkan link; jika kosong, tampilkan input file
+                if (visa && visa.trim() !== '') {
+                    showVisaPreview(visa);
+                } else {
+                    showVisaUploaderRequired();
                 }
             });
+        });
 
+        document.addEventListener('DOMContentLoaded', function() {
             new TomSelect("#registration_id", {
                 create: false,
                 placeholder: "Pilih Nomor Registrasi",
@@ -229,6 +275,5 @@
             });
         });
     </script>
-
 
 </x-layout>

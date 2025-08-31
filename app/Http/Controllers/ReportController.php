@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Registration;
+use App\Models\TripDetail;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -93,6 +94,55 @@ class ReportController extends Controller
         return $pdf->stream('export-pembayaran-jamaah-haji-' . Carbon::now()->timestamp . '.pdf');
     }
 
+    public function hajjDeparture()
+    {
+        $years = TripDetail::whereHas('registration.package', fn($q) => $q->where('type', 'Haji'))
+            ->selectRaw('YEAR(departure_date) as y')
+            ->distinct()
+            ->orderByDesc('y')
+            ->pluck('y')
+            ->toArray();
+
+        $data = [
+            'title' => 'Export Keberangkatan Jamaah Haji',
+            'years' => $years,
+        ];
+
+        return view('pages.admin.report.hajj.hajj-departures', ['data' => $data]);
+    }
+
+    public function exportHajjDepartures($year)
+    {
+        // Validasi tahun sederhana
+        if (!preg_match('/^\d{4}$/', (string) $year)) {
+            abort(404);
+        }
+
+        // Ambil registrasi Haji yang punya TripDetail di tahun tsb
+        $departures = Registration::with([
+                'user.profile',
+                'package',
+                'tripDetail',
+            ])
+            ->whereHas('package', fn($q) => $q->where('type', 'Haji'))
+            ->whereHas('tripDetail', fn($q) => $q->whereYear('departure_date', $year))
+            ->orderBy('registration_number')
+            ->get();
+
+        if ($departures->isEmpty()) {
+            return back()->with('warning', "Tidak ada data keberangkatan Haji tahun {$year}.");
+        }
+
+        // Render ke PDF
+        $pdf = Pdf::loadView('pages.admin.report.hajj.export-hajj-departures', [
+                'departures' => $departures,
+                'year'       => $year,
+            ])
+            ->setPaper('a4', 'landscape');
+
+        return $pdf->stream("keberangkatan-haji-{$year}.pdf");
+    }
+
     public function umrahDocuments(Request $request)
     {
         $search = $request->get('search');
@@ -151,6 +201,55 @@ class ReportController extends Controller
         $pdf = Pdf::loadView('pages.admin.report.umrah.export-umrah-payments', ['jamaah' => $jamaah]);
 
         return $pdf->stream('export-pembayaran-jamaah-umroh-' . Carbon::now()->timestamp . '.pdf');
+    }
+
+    public function umrahDeparture()
+    {
+        $years = TripDetail::whereHas('registration.package', fn($q) => $q->where('type', 'Umroh'))
+            ->selectRaw('YEAR(departure_date) as y')
+            ->distinct()
+            ->orderByDesc('y')
+            ->pluck('y')
+            ->toArray();
+
+        $data = [
+            'title' => 'Export Keberangkatan Jamaah Umroh',
+            'years' => $years,
+        ];
+
+        return view('pages.admin.report.umrah.umrah-departures', ['data' => $data]);
+    }
+
+    public function exportumrahDepartures($year)
+    {
+        // Validasi tahun sederhana
+        if (!preg_match('/^\d{4}$/', (string) $year)) {
+            abort(404);
+        }
+
+        // Ambil registrasi Umroh yang punya TripDetail di tahun tsb
+        $departures = Registration::with([
+                'user.profile',
+                'package',
+                'tripDetail',
+            ])
+            ->whereHas('package', fn($q) => $q->where('type', 'Umroh'))
+            ->whereHas('tripDetail', fn($q) => $q->whereYear('departure_date', $year))
+            ->orderBy('registration_number')
+            ->get();
+
+        if ($departures->isEmpty()) {
+            return back()->with('warning', "Tidak ada data keberangkatan Umroh tahun {$year}.");
+        }
+
+        // Render ke PDF
+        $pdf = Pdf::loadView('pages.admin.report.umrah.export-umrah-departures', [
+                'departures' => $departures,
+                'year'       => $year,
+            ])
+            ->setPaper('a4', 'landscape');
+
+        return $pdf->stream("keberangkatan-umroh-{$year}.pdf");
     }
 
 }

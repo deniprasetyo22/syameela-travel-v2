@@ -55,6 +55,7 @@
                             'family_card' => 'KK',
                             'passport' => 'Paspor',
                             'photo' => 'Foto',
+                            'visa' => 'Visa',
                             'marriage_book' => 'Buku Nikah',
                             'vaccine_certificate' => 'Surat Vaksin'
                         ];

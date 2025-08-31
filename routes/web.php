@@ -159,11 +159,15 @@ Route::get('/admin/report/hajj/documents', [ReportController::class, 'hajjDocume
 Route::get('/admin/report/hajj/documents/export/{id}', [ReportController::class, 'exportHajjDocuments'])->middleware('auth', 'verified', 'is_admin')->name('export-hajj-documents');
 Route::get('/admin/report/hajj/payments', [ReportController::class, 'hajjPayments'])->middleware('auth', 'verified', 'is_admin')->name('report-hajj-payments');
 Route::get('/admin/report/hajj/payments/export/{id}', [ReportController::class, 'exportHajjPayments'])->middleware('auth', 'verified', 'is_admin')->name('export-hajj-payments');
+Route::get('/admin/report/hajj/departure', [ReportController::class, 'hajjDeparture'])->middleware('auth', 'verified', 'is_admin')->name('report-hajj-departure');
+Route::get('/admin/report/hajj/departures/export/{year}', [ReportController::class, 'exportHajjDepartures'])->middleware('auth','verified','is_admin')->name('export-hajj-departures');
 
 Route::get('/admin/report/umrah/documents', [ReportController::class, 'umrahDocuments'])->middleware('auth', 'verified', 'is_admin')->name('report-umrah-documents');
 Route::get('/admin/report/umrah/documents/export/{id}', [ReportController::class, 'exportUmrahDocuments'])->middleware('auth', 'verified', 'is_admin')->name('export-umrah-documents');
 Route::get('/admin/report/umrah/payments', [ReportController::class, 'umrahPayments'])->middleware('auth', 'verified', 'is_admin')->name('report-umrah-payments');
 Route::get('/admin/report/umrah/payments/export/{id}', [ReportController::class, 'exportUmrahPayments'])->middleware('auth', 'verified', 'is_admin')->name('export-umrah-payments');
+Route::get('/admin/report/umrah/departure', [ReportController::class, 'umrahDeparture'])->middleware('auth', 'verified', 'is_admin')->name('report-umrah-departure');
+Route::get('/admin/report/umrah/departures/export/{year}', [ReportController::class, 'exportUmrahDepartures'])->middleware('auth','verified','is_admin')->name('export-umrah-departures');
 
 Route::get('/admin/manasik', [ManasikController::class, 'dashboard'])->middleware('auth', 'verified', 'is_admin')->name('manasik-dashboard');
 Route::get('/admin/manasik/create', [ManasikController::class, 'create'])->middleware('auth', 'verified', 'is_admin')->name('create-manasik');

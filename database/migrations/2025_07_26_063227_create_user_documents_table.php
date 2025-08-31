@@ -18,6 +18,7 @@ return new class extends Migration
             $table->text('family_card')->nullable();
             $table->text('passport')->nullable();
             $table->text('photo')->nullable();
+            $table->text('visa')->nullable();
             $table->text('marriage_book')->nullable();
             $table->text('vaccine_certificate')->nullable();
             $table->dateTime('verified_at')->nullable();

@@ -133,6 +133,7 @@ class ProfileController extends Controller
             'family_card' => 'nullable|image|mimes:jpg,jpeg,png|max:3074',
             'passport' => 'nullable|image|mimes:jpg,jpeg,png|max:3074',
             'photo' => 'nullable|image|mimes:jpg,jpeg,png|max:3074',
+            'visa' => 'nullable|mimes:pdf|max:3074',
             'marriage_book' => 'nullable|image|mimes:jpg,jpeg,png|max:3074',
             'vaccine_certificate' => 'nullable|image|mimes:jpg,jpeg,png|max:3074',
         ], [
@@ -152,6 +153,9 @@ class ProfileController extends Controller
             'photo.mimes' => 'Format gambar Foto harus JPG, JPEG, atau PNG.',
             'photo.max' => 'Ukuran gambar Foto tidak boleh lebih dari 3MB.',
 
+            'visa.mimes' => 'Format file Visa harus PDF.',
+            'visa.max' => 'Ukuran file Visa tidak boleh lebih dari 3MB.',
+
             'marriage_book.image' => 'File Buku Nikah harus berupa gambar.',
             'marriage_book.mimes' => 'Format gambar Buku Nikah harus JPG, JPEG, atau PNG.',
             'marriage_book.max' => 'Ukuran gambar Buku Nikah tidak boleh lebih dari 3MB.',
@@ -165,7 +169,7 @@ class ProfileController extends Controller
 
         // Hapus file lama jika akan diganti
         if ($documents) {
-            $fields = ['id_card', 'family_card', 'passport', 'photo', 'marriage_bok', 'vaccine_certificate'];
+            $fields = ['id_card', 'family_card', 'passport', 'photo', 'visa', 'marriage_bok', 'vaccine_certificate'];
             foreach ($fields as $field) {
                 if ($request->hasFile($field)) {
                     $oldPath = str_replace('/storage/', '', $documents->$field);
@@ -196,7 +200,7 @@ class ProfileController extends Controller
 
     public function destroyDocument($field)
     {
-        $allowedFields = ['id_card', 'family_card', 'passport', 'photo', 'marriage_book', 'vaccine_certificate'];
+        $allowedFields = ['id_card', 'family_card', 'passport', 'photo', 'visa', 'marriage_book', 'vaccine_certificate'];
 
         if (!in_array($field, $allowedFields)) {
             abort(404);

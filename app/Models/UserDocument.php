@@ -18,6 +18,7 @@ class UserDocument extends Model
         'family_card',
         'passport',
         'photo',
+        'visa',
         'marriage_book',
         'vaccine_certificate',
         'verified_at',

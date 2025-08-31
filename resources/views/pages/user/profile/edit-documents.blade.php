@@ -107,6 +107,20 @@
                 </div>
 
                 <div class="mb-6 w-full">
+                    <label for="visa" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
+                        Visa <span class="text-xs text-gray-400">(*Max 3MB)</span>
+                    </label>
+                    <input type="file" name="visa" id="visa"
+                        class="@error('visa') border-red-500 @else border-gray-300 @enderror block w-full cursor-pointer rounded-lg border bg-gray-50 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-400"
+                        accept="application/pdf">
+                    <p class="mt-1 text-xs text-gray-500">Kosongkan jika tidak ingin mengganti gambar.</p>
+                    @if (!empty($data['user']->documents->visa))
+                        <img src="{{ $data['user']->documents->visa }}" alt="Visa"
+                            class="mt-2 h-auto w-48 rounded-lg">
+                    @endif
+                </div>
+
+                <div class="mb-6 w-full">
                     <label for="marriage_book" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
                         Buku Nikah <span class="text-xs text-gray-400">(*Max 3MB)</span>
                     </label>

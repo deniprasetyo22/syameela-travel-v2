@@ -130,6 +130,13 @@
                                         <span class="ml-3">Pembayaran</span>
                                     </a>
                                 </li>
+                                <li>
+                                    <a href="{{ route('report-hajj-departure') }}"
+                                        class="flex w-full items-center rounded-lg p-2 pl-20 text-base font-medium text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                                        <i class="fa-solid fa-calendar-days flex w-6 justify-center text-gray-500"></i>
+                                        <span class="ml-3">Keberangkatan</span>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                         <li>
@@ -154,6 +161,13 @@
                                         class="flex w-full items-center rounded-lg p-2 pl-20 text-base font-medium text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
                                         <i class="fa-solid fa-dollar-sign flex w-6 justify-center text-gray-500"></i>
                                         <span class="ml-3">Pembayaran</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('report-umrah-departure') }}"
+                                        class="flex w-full items-center rounded-lg p-2 pl-20 text-base font-medium text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                                        <i class="fa-solid fa-calendar-days flex w-6 justify-center text-gray-500"></i>
+                                        <span class="ml-3">Keberangkatan</span>
                                     </a>
                                 </li>
                             </ul>

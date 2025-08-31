@@ -33,8 +33,8 @@ class TripController extends Controller
      */
     public function create()
     {
-        $transactions = Registration::where('status', 'Paid')->latest()->get();
-
+        $transactions = Registration::with(['user', 'user.documents'])->where('status', 'Paid')->latest()->get();
+        // dd($transactions->last()->user->documents->visa);
         $data = [
             'title' => 'Add Trip',
             'transactions' => $transactions
@@ -48,41 +48,60 @@ class TripController extends Controller
      */
     public function store(Request $request)
     {
+        // 1) Validasi: visa dibuat nullable karena bisa ambil dari existing
         $validated = $request->validate([
-            'registration_id' => 'required|exists:registrations,id',
-            'departure_date' => 'required',
-            'return_date' => 'required|after:departure_date',
-            'guide_name' => 'required|string|max:255',
-            'gathering_location' => 'required|string|max:255',
-            'airline' => 'required|string|max:255',
-            'flight_number' => 'required|string|max:255',
-            'visa' => 'required|mimes:pdf|max:5000',
-            'ticket' => 'required|mimes:pdf|max:5000',
-            'hotel_info' => 'required',
-            'equipment_info' => 'required',
+            'registration_id'   => 'required|exists:registrations,id',
+            'departure_date'    => 'required',
+            'return_date'       => 'required|after:departure_date',
+            'guide_name'        => 'required|string|max:255',
+            'gathering_location'=> 'required|string|max:255',
+            'airline'           => 'required|string|max:255',
+            'flight_number'     => 'required|string|max:255',
+            'visa'              => 'nullable|mimes:pdf|max:5000',
+            'ticket'            => 'required|mimes:pdf|max:5000',
+            'hotel_info'        => 'required',
+            'equipment_info'    => 'required',
         ], [
             'registration_id.required' => 'ID Transaksi wajib diisi.',
-            'registration_id.exists' => 'ID Transaksi tidak ditemukan.',
-            'departure_date.required' => 'Tanggal keberangkatan wajib diisi.',
-            'return_date.required' => 'Tanggal kepulangan wajib diisi.',
-            'return_date.after' => 'Tanggal kepulangan tidak boleh sebelum tanggal keberangkatan.',
-            'guide_name.required' => 'Nama pemandu wajib diisi.',
+            'registration_id.exists'   => 'ID Transaksi tidak ditemukan.',
+            'departure_date.required'  => 'Tanggal keberangkatan wajib diisi.',
+            'return_date.required'     => 'Tanggal kepulangan wajib diisi.',
+            'return_date.after'        => 'Tanggal kepulangan tidak boleh sebelum tanggal keberangkatan.',
+            'guide_name.required'      => 'Nama pemandu wajib diisi.',
             'gathering_location.required' => 'Tempat bertemu wajib diisi.',
-            'airline.required' => 'Maskapai wajib diisi.',
-            'flight_number.required' => 'Nomor penerbangan wajib diisi.',
-            'visa.required' => 'Visa wajib diisi.',
-            'ticket.required' => 'Tiket wajib diisi.',
-            'hotel_info.required' => 'Informasi hotel wajib diisi.',
-            'equipment_info.required' => 'Informasi alat wajib diisi.',
+            'airline.required'         => 'Maskapai wajib diisi.',
+            'flight_number.required'   => 'Nomor penerbangan wajib diisi.',
+            // 'visa' sengaja tidak diharuskan di sini
+            'ticket.required'          => 'Tiket wajib diisi.',
+            'hotel_info.required'      => 'Informasi hotel wajib diisi.',
+            'equipment_info.required'  => 'Informasi alat wajib diisi.',
         ]);
 
+        // 2) Ambil data registrasi beserta dokumen user untuk cek existing visa
+        $registration = Registration::with(['user.documents'])->findOrFail($validated['registration_id']);
+        $existingVisa = optional(optional($registration->user)->documents)->visa; // bisa null/string
+
+        // 3) Proses file visa:
+        //    - jika user upload baru → simpan & pakai itu
+        //    - else kalau tidak upload dan existing ada → pakai existing
+        //    - else error (wajib ada salah satu)
         if ($request->hasFile('visa')) {
             $visa = $request->file('visa');
             $visaName = Str::random(30) . '.' . $visa->getClientOriginalExtension();
             $visaPath = $visa->storeAs('file/trip/visas', $visaName, 'public');
             $validated['visa'] = '/storage/' . $visaPath;
+        } else {
+            if ($existingVisa) {
+                $validated['visa'] = $existingVisa;
+            } else {
+                // Tidak ada upload & tidak ada existing → kembalikan error terarah
+                return back()
+                    ->withErrors(['visa' => 'Visa wajib diunggah atau tersedia pada data registrasi terpilih.'])
+                    ->withInput();
+            }
         }
 
+        // 4) Proses ticket (tetap wajib upload baru)
         if ($request->hasFile('ticket')) {
             $ticket = $request->file('ticket');
             $ticketName = Str::random(30) . '.' . $ticket->getClientOriginalExtension();
@@ -90,6 +109,7 @@ class TripController extends Controller
             $validated['ticket'] = '/storage/' . $ticketPath;
         }
 
+        // 5) Simpan TripDetail
         TripDetail::create($validated);
 
         return redirect()->route('trip-dashboard')->with('success', 'Trip berhasil ditambahkan.');
@@ -205,9 +225,11 @@ class TripController extends Controller
         // Hapus file visa jika ada
         if ($trip->visa){
             $oldVisa = Str::replace('/storage/', '', $trip->visa);
-            if(Storage::disk('public')->exists($oldVisa)){
-                Storage::disk('public')->delete($oldVisa);
-            };
+            if(Str::startsWith($oldVisa, 'file/trip/visas/')){
+                if(Storage::disk('public')->exists($oldVisa)){
+                    Storage::disk('public')->delete($oldVisa);
+                };
+            }
         };
 
         // Hapus file ticket jika ada
