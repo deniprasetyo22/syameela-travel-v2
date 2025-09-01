@@ -107,17 +107,48 @@
                 </div>
 
                 <div class="mb-6 w-full">
-                    <label for="visa" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
-                        Visa <span class="text-xs text-gray-400">(*Max 3MB)</span>
+                    @php
+                        $hasVisa = old('has_visa', !empty($data['user']->documents->visa) ? '1' : '0');
+                    @endphp
+
+                    <label class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
+                        Visa
                     </label>
-                    <input type="file" name="visa" id="visa"
-                        class="@error('visa') border-red-500 @else border-gray-300 @enderror block w-full cursor-pointer rounded-lg border bg-gray-50 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-400"
-                        accept="application/pdf">
-                    <p class="mt-1 text-xs text-gray-500">Kosongkan jika tidak ingin mengganti gambar.</p>
-                    @if (!empty($data['user']->documents->visa))
-                        <img src="{{ $data['user']->documents->visa }}" alt="Visa"
-                            class="mt-2 h-auto w-48 rounded-lg">
-                    @endif
+
+                    {{-- Radio: status visa --}}
+                    <div class="mb-3 flex items-center gap-6">
+                        <label class="inline-flex items-center gap-2">
+                            <input type="radio" name="has_visa" id="has_visa_no" value="0"
+                                class="h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-500 dark:border-gray-600"
+                                {{ $hasVisa === '0' ? 'checked' : '' }} />
+                            <span class="text-sm text-gray-700 dark:text-gray-300">Belum Ada</span>
+                        </label>
+
+                        <label class="inline-flex items-center gap-2">
+                            <input type="radio" name="has_visa" id="has_visa_yes" value="1"
+                                class="h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-500 dark:border-gray-600"
+                                {{ $hasVisa === '1' ? 'checked' : '' }} />
+                            <span class="text-sm text-gray-700 dark:text-gray-300">Sudah Ada</span>
+                        </label>
+                    </div>
+
+                    {{-- Wrapper input file visa (muncul hanya jika "Sudah Ada") --}}
+                    <div id="visa-file-wrapper" class="{{ $hasVisa === '1' ? '' : 'hidden' }}">
+                        <label for="visa" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
+                            Upload Visa <span class="text-xs text-gray-400">(*Max 3MB, PDF)</span>
+                        </label>
+                        <input type="file" name="visa" id="visa"
+                            class="@error('visa') border-red-500 @else border-gray-300 @enderror block w-full cursor-pointer rounded-lg border bg-gray-50 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-400"
+                            accept="application/pdf" />
+                        <p class="mt-1 text-xs text-gray-500">Kosongkan jika tidak ingin mengganti file.</p>
+
+                        @if (!empty($data['user']->documents->visa))
+                            <a href="{{ $data['user']->documents->visa }}" target="_blank"
+                                class="mt-2 inline-flex items-center gap-2 text-sm text-blue-600 hover:underline">
+                                <i class="fa-solid fa-file-pdf"></i> Lihat Visa saat ini
+                            </a>
+                        @endif
+                    </div>
                 </div>
 
                 <div class="mb-6 w-full">
@@ -162,4 +193,29 @@
             </form>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const visaYes = document.getElementById('has_visa_yes');
+            const visaNo = document.getElementById('has_visa_no');
+            const wrap = document.getElementById('visa-file-wrapper');
+
+            function toggleVisaInput() {
+                // Tampilkan input file hanya bila "Sudah Ada" dipilih
+                const show = visaYes && visaYes.checked;
+                if (show) {
+                    wrap.classList.remove('hidden');
+                } else {
+                    wrap.classList.add('hidden');
+                    // Optional: kosongkan input saat disembunyikan
+                    const file = document.getElementById('visa');
+                    if (file) file.value = '';
+                }
+            }
+
+            [visaYes, visaNo].forEach(r => r && r.addEventListener('change', toggleVisaInput));
+            toggleVisaInput(); // jalankan saat load pertama
+        });
+    </script>
+
 </x-layout>
